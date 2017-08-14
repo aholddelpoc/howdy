@@ -55,7 +55,7 @@ def processRequest(req):
 		return {}
 	return res
 
-	def makeWebhookResultForGetChemicalSymbol(data):
+def makeWebhookResultForGetChemicalSymbol(data):
 	element = data.get("result").get("parameters").get("elementname")
 	chemicalSymbol = 'Unknown'
 	if element == 'Carbon':
