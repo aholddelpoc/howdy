@@ -143,7 +143,7 @@ def makeWebhookResult(data):
 	return {
 		"speech": speech,
 		"data": results,
-		"source": "apiai-resto-webhook"
+		"source": ""source": "apiai-weather-webhook-sample""
 	}
 
 
