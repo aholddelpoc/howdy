@@ -82,7 +82,7 @@ def makeWebhookResultForWineByTaste(data):
 	st_of_col = data.get("result").get("parameters").get("style_of_color")
 	WineTaste = 'Unknown'
 	if col == 'Pink(Rose/Blush)' and st_of_col =='Light & Bubbly':
-		WineTaste = 'Sparkling Wine (Rose)\n
+		WineTaste = 'Sparkling Wine (Rose)/\n
 			A crisp, sparkling blush wine with flavours of red berries\n\n
 			Highly rated wines\n
 			Domaine Carneros Brut Rose Cuvee de la Pompadour Sparkling wine (Rose)\n\n
