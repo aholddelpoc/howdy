@@ -80,16 +80,23 @@ def makeWebhookResultForGetChemicalSymbol(data):
 def makeWebhookResultForWineByTaste(data):
 	col = data.get("result").get("parameters").get("color")
 	st_of_col = data.get("result").get("parameters").get("style_of_color")
-	chemicalSymbol = 'Unknown'
+	WineTaste = 'Unknown'
 	if col == 'Pink(Rose/Blush)' and st_of_col =='Light & Bubbly':
-		chemicalSymbol = 'Sparkling Wine (Rose) A crisp, sparkling blush wine with flavours of red berries'
+		WineTaste = 'Sparkling Wine (Rose)\n
+			A crisp, sparkling blush wine with flavours of red berries\n\n
+			Highly rated wines\n
+			Domaine Carneros Brut Rose Cuvee de la Pompadour Sparkling wine (Rose)\n\n
+			Sipping Point Picks\n\n
+			Jacob’s Creek Rose Moscato Sparkling Wine Banfi Rosa Regale Sparkling Red Brachetto\n\n
+			Value $10 & under\n\n
+			Cook’s Sparkling Wine (Rose)'
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
-		chemicalSymbol = 'H'
+		WineTaste = 'H'
 	elif col == 'White' and st_of_col =='Sweet':
-		chemicalSymbol = 'N'
+		WineTaste = 'N'
 	elif col == 'White' and st_of_col =='Semi-sweet':
-		chemicalSymbol = 'O'
-	speech = 'The Chemical symbol of '+col+' and '+st_of_col+' is '+chemicalSymbol
+		WineTaste = 'O'
+	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+chemicalSymbol
 	
 	return {
 		"speech": speech,
