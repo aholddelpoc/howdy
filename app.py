@@ -51,6 +51,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "getChemicalSymbol":
 		data = req
 		res = makeWebhookResultForGetChemicalSymbol(data)
+	elif req.get("result").get("action") == "WineByTaste":
+		data = req
+		res = makeWebhookResultForWineByTaste(data)
 	else:
 		return {}
 	return res
@@ -74,6 +77,24 @@ def makeWebhookResultForGetChemicalSymbol(data):
 		"source": "webhookdata"
 	}
 	
+def makeWebhookResultForWineByTaste(data):
+	col = data.get("result").get("parameters").get("color")
+	st_of_col = data.get("result").get("parameters").get("style_of_color")
+	chemicalSymbol = 'Unknown'
+	if col == 'Pink (Rose/Blush)' and st_of_col =='Light and bubbly':
+		chemicalSymbol = 'C'
+	elif col == 'Red' and st_of_col =='Dry & Fruity':
+		chemicalSymbol = 'H'
+	elif col == 'White' and st_of_col =='Sweet':
+		chemicalSymbol = 'N'
+	elif col == 'White' and st_of_col =='Semi-sweet':
+		chemicalSymbol = 'O'
+	speech = 'The Chemical symbol of '+element+' is '+chemicalSymbol
+	
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
 
 def makeWebhookResultForGetAtomicNumber(data):
 	element = data.get("result").get("parameters").get("elementname")
