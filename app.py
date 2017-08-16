@@ -95,7 +95,8 @@ def makeWebhookResultForWineByTaste(data):
 		"speech": speech,
 		"displayText": speech,
 		"source": "webhookdata"
-
+		}
+		
 def makeWebhookResultForGetAtomicNumber(data):
 	element = data.get("result").get("parameters").get("elementname")
 	atomicNumber = 'Unknown'
