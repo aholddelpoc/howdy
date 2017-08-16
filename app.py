@@ -97,11 +97,17 @@ def makeWebhookResultForWineByTaste(data):
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
 	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
+	skype_message = {
+  				"skype": {
+    				"text": WineTaste
+  				}
+			}
 	
 	return {
 		"speech": speech,
 		"displayText": speech,
-		"source": "webhookdata"
+		"data": {"skype": skype_message},
+		"source": "webhookdata",
 		}
 		
 def makeWebhookResultForGetAtomicNumber(data):
