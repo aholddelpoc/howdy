@@ -89,7 +89,7 @@ def makeWebhookResultForWineByTaste(data):
 		chemicalSymbol = 'N'
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		chemicalSymbol = 'O'
-	speech = 'The Chemical symbol of '+element+' is '+chemicalSymbol
+	speech = 'The Chemical symbol of '+col+' and '+st_of_col+' is '+chemicalSymbol
 	
 	return {
 		"speech": speech,
