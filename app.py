@@ -96,7 +96,7 @@ def makeWebhookResultForWineByTaste(data):
 		WineTaste = 'N'
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
-	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+chemicalSymbol
+	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
 	
 	return {
 		"speech": speech,
