@@ -81,7 +81,7 @@ def makeWebhookResultForWineByTaste(data):
 	col = data.get("result").get("parameters").get("color")
 	st_of_col = data.get("result").get("parameters").get("style_of_color")
 	chemicalSymbol = 'Unknown'
-	if col == 'Pink (Rose/Blush)' and st_of_col =='Light & Bubbly':
+	if col == 'Pink(Rose/Blush)' and st_of_col =='Light & Bubbly':
 		chemicalSymbol = 'Sparkling Wine (Rose) A crisp, sparkling blush wine with flavours of red berries'
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
 		chemicalSymbol = 'H'
