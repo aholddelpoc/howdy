@@ -82,14 +82,15 @@ def makeWebhookResultForWineByTaste(data):
 	st_of_col = data.get("result").get("parameters").get("style_of_color")
 	WineTaste = 'Unknown'
 	if col == 'Pink(Rose/Blush)' and st_of_col =='Light & Bubbly':
-		WineTaste = "Sparkling Wine (Rose)		        \
-		A crisp, sparkling blush wine with flavours of red berries\
-		Highly rated wines	                		\
-		Domaine Carneros Brut Rose Cuvee de la Pompadour Sparkling wine (Rose)\
-		Sipping Point Picks                                     \
-		Jacob’s Creek Rose Moscato Sparkling Wine Banfi Rosa Regale Sparkling Red Brachetto\
-		Value $10 & under					\
-		Cook’s Sparkling Wine (Rose)"
+		return {
+			"skype": {
+					{
+					"type": "message",
+				"text": "# Welcome to **Botland**\n\nPlease visit [my blog](https://blogs.msdn.microsoft.com/tsmatsuz).\n\n---\n\nThis is a test."
+				}
+				}
+			}
+		
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
 		WineTaste = 'H'
 	elif col == 'White' and st_of_col =='Sweet':
@@ -97,11 +98,7 @@ def makeWebhookResultForWineByTaste(data):
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
 	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
-	skype_message = {
-  				"skype": {
-    				"text": WineTaste
-  				}
-			}
+	
 	
 	return {
 		"speech": speech,
