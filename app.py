@@ -82,99 +82,14 @@ def makeWebhookResultForWineByTaste(data):
 	st_of_col = data.get("result").get("parameters").get("style_of_color")
 	WineTaste = 'Unknown'
 	if col == 'Pink(Rose/Blush)' and st_of_col =='Light & Bubbly':
-		return {
-			{
-				  "skype": {
-				    "type": "message",
-				    "attachmentLayout": "carousel",
-				    "text": "Please select your Menu",
-				    "attachments": [
-				      {
-					"contentType": "application/vnd.microsoft.card.hero",
-					"content": {
-					  "buttons": [
-					    {
-					      "type": "imBack",
-					      "title": "Store Locator",
-					      "value": "Store Locator"
-					    },
-					    {
-					      "type": "imBack",
-					      "title": "Offers and Discounts",
-					      "value": "Offers and Discounts"
-					    },
-					    {
-					      "type": "imBack",
-					      "title": "My Chef Betty",
-					      "value": "My Chef Betty"
-					    },
-					    {
-					      "type": "imBack",
-					      "title": "Sipping Point",
-					      "value": "Sipping Point"
-					    }
-					  ]
-					}
-				      },
-				      {
-					"contentType": "application/vnd.microsoft.card.hero",
-					"content": {
-					  "buttons": [
-					    {
-					      "type": "imBack",
-					      "title": "Locate Item",
-					      "value": "Locate Item"
-					    },
-					    {
-					      "type": "imBack",
-					      "title": "Browse Aisles",
-					      "value": "Browse Aisles"
-					    },
-					    {
-					      "type": "imBack",
-					      "title": "Wishlist",
-					      "value": "Wishlist"
-					    },
-					    {
-					      "type": "imBack",
-					      "title": "Order Tracking",
-					      "value": "Order Tracking"
-					    }
-					  ]
-					}
-				      },
-				      {
-					"contentType": "application/vnd.microsoft.card.hero",
-					"content": {
-					  "buttons": [
-					    {
-					      "type": "imBack",
-					      "title": "Scheduler",
-					      "value": "Scheduler"
-					    },
-					    {
-					      "type": "imBack",
-					      "title": "My Voice",
-					      "value": "My Voice"
-					    },
-					    {
-					      "type": "imBack",
-					      "title": "AHOLD Social",
-					      "value": "AHOLD Social"
-					    },
-					    {
-					      "type": "imBack",
-					      "title": "Message Board",
-					      "value": "Message Board"
-					    }
-					  ]
-					}
-				      }
-				    ]
-				  }
-				}
-			}
-		
+		WineTaste = "Sparkling Wine (Rose)\
+			A crisp, sparkling blush wine with flavours of red berries\
+			Highly rated wines\
+			Domaine Carneros Brut Rose Cuvee de la Pompadour Sparkling wine (Rose)\
+			Sipping Point Picks\
+			Jacob’s Creek Rose Moscato Sparkling Wine Banfi Rosa Regale Sparkling Red Brachetto\
+			Value $10 & under\
+			Cook’s Sparkling Wine (Rose)"
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
 		WineTaste = 'H'
 	elif col == 'White' and st_of_col =='Sweet':
@@ -182,8 +97,18 @@ def makeWebhookResultForWineByTaste(data):
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
 	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
+	skype_message = {
+  				"skype": {
+    				"text": WineTaste
+  				}
+			}
 	
-		
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"data": {"skype": skype_message},
+		"source": "webhookdata",
+		}
 		
 def makeWebhookResultForGetAtomicNumber(data):
 	element = data.get("result").get("parameters").get("elementname")
