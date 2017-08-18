@@ -171,17 +171,13 @@ def makeWebhookResultForWineByTaste(data):
 		WineTaste = 'O'
 	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
 	
-	r = make_response(Winetaste)
-	r.headers['Content-Type'] = 'application/json'
-	return r
-	'''
 	return {
 		"speech": json.dumps(WineTaste),
 		"displayText": json.dumps(WineTaste),
 		"data": {"skype": skype_message},
 		"source": "webhookdata",
 		}
-	'''
+	
 	
 def makeWebhookResultForGetAtomicNumber(data):
 	element = data.get("result").get("parameters").get("elementname")
