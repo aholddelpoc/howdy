@@ -93,7 +93,56 @@ def makeWebhookResultForWineByTaste(data):
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
 		WineTaste = 'H'
 	elif col == 'White' and st_of_col =='Sweet':
-		WineTaste = 'N'
+		WineTaste = '''
+		{
+  "skype": {
+    "type": "message",
+    "attachmentLayout": "carousel",
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.hero",
+        "content": {
+          "text": "Which special occasion?",
+          "buttons": [
+            {
+              "type": "imBack",
+              "title": "Wine as a gift",
+              "value": "Wine as a gift"
+            },
+            {
+              "type": "imBack",
+              "title": "Wines for Date Night",
+              "value": "Wines for Date Night"
+            }
+          ]
+        }
+      },
+      {
+        "contentType": "application/vnd.microsoft.card.hero",
+        "content": {
+          "buttons": [
+            {
+              "type": "imBack",
+              "title": "Wines to Impress",
+              "value": "Wines to Impress"
+            },
+            {
+              "type": "imBack",
+              "title": "Wines for Holidays",
+              "value": "Wines for Holidays"
+            },
+            {
+              "type": "imBack",
+              "title": "Wines for Tasting Party",
+              "value": "Wines for Tasting Party"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+		'''
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
 	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
