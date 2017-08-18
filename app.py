@@ -78,6 +78,8 @@ def makeWebhookResultForGetChemicalSymbol(data):
 	}
 	
 def makeWebhookResultForWineByTaste(data):
+	print("===========================================")
+	print(data)
 	col = data.get("result").get("parameters").get("color")
 	st_of_col = data.get("result").get("parameters").get("style_of_color")
 	WineTaste = 'Unknown'
