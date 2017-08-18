@@ -94,62 +94,105 @@ def makeWebhookResultForWineByTaste(data):
 		WineTaste = 'H'
 	elif col == 'White' and st_of_col =='Sweet':
 		WineTaste = '''
-		        { "result": {
-  "fulfillment": {
-    "messages": [
+		        {
+  "id": "c30ccedb-018f-454d-80e2-f04e33e555dd",
+  "timestamp": "2017-08-18T09:44:35.935Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "sipping point",
+    "action": "",
+    "actionIncomplete": false,
+    "parameters": {},
+    "contexts": [],
+    "metadata": {
+      "intentId": "338f5b66-466c-423b-855f-29f84e9baa2e",
+      "webhookUsed": "false",
+      "webhookForSlotFillingUsed": "false",
+      "intentName": "Sipping Point"
+    },
+    "fulfillment": {
+      "speech": "",
+      "messages": [
+        {
+          "type": 1,
+          "platform": "skype",
+          "title": "Sipping Point",
+          "subtitle": "Personalized recommendations to help you buy the best wine.",
+          "imageUrl": "http://noecommercews1098.cloudapp.net/Content/Images/uploaded/Sipping%20Point.jpg",
+          "buttons": []
+        },
         {
           "type": 4,
           "platform": "skype",
           "payload": {
-{
-  "skype": {
-    "type": "message",
-    "attachmentLayout": "carousel",
-    "attachments": [
-      {
-        "contentType": "application/vnd.microsoft.card.hero",
-        "content": {
-          "text": "Which special occasion?",
-          "buttons": [
-            {
-              "type": "imBack",
-              "title": "Wine as a gift",
-              "value": "Wine as a gift"
-            },
-            {
-              "type": "imBack",
-              "title": "Wines for Date Night",
-              "value": "Wines for Date Night"
+            "skype": {
+              "type": "message",
+              "attachmentLayout": "carousel",
+              "attachments": [
+                {
+                  "contentType": "application/vnd.microsoft.card.hero",
+                  "content": {
+                    "buttons": [
+                      {
+                        "type": "imBack",
+                        "title": "Wine with a meal/food",
+                        "value": "Wine with a meal/food"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Wine for an occasion",
+                        "value": "Wine for an occasion"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Wine by taste preference",
+                        "value": "Wine by taste preference"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "contentType": "application/vnd.microsoft.card.hero",
+                  "content": {
+                    "buttons": [
+                      {
+                        "type": "imBack",
+                        "title": "Wine by Type/Variety",
+                        "value": "Wine by Type/Variety"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "BBQ & Cookout wines",
+                        "value": "BBQ & Cookout wines"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Popular wine picks",
+                        "value": "Popular wine picks"
+                      }
+                    ]
+                  }
+                }
+              ]
             }
-          ]
+          }
+        },
+        {
+          "type": 0,
+          "speech": ""
         }
-      },
-      {
-        "contentType": "application/vnd.microsoft.card.hero",
-        "content": {
-          "buttons": [
-            {
-              "type": "imBack",
-              "title": "Wines to Impress",
-              "value": "Wines to Impress"
-            },
-            {
-              "type": "imBack",
-              "title": "Wines for Holidays",
-              "value": "Wines for Holidays"
-            },
-            {
-              "type": "imBack",
-              "title": "Wines for Tasting Party",
-              "value": "Wines for Tasting Party"
-            }
-          ]
-        }
-      }
-    ]
-  }
+      ]
+    },
+    "score": 1
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "2f4d5f28-3243-4cae-9b0c-7ad29886eb93"
 }
-}}]}}
+
 
 		'''
 	elif col == 'White' and st_of_col =='Semi-sweet':
