@@ -94,7 +94,11 @@ def makeWebhookResultForWineByTaste(data):
 		WineTaste = 'H'
 	elif col == 'White' and st_of_col =='Sweet':
 		WineTaste = '''
-		{
+		        {
+          "type": 4,
+          "platform": "skype",
+          "payload": {
+{
   "skype": {
     "type": "message",
     "attachmentLayout": "carousel",
@@ -142,6 +146,7 @@ def makeWebhookResultForWineByTaste(data):
     ]
   }
 }
+}}
 		'''
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
