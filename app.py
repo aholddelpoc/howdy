@@ -153,7 +153,7 @@ def makeWebhookResultForWineByTaste(data):
 			}
 	
 	return {
-		"speech": speech,
+		"speech": WineTaste,
 		"displayText": WineTaste,
 		"data": {"skype": skype_message},
 		"source": "webhookdata",
