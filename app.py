@@ -91,7 +91,26 @@ def makeWebhookResultForWineByTaste(data):
 			Value $10 & under\
 			Cook’s Sparkling Wine (Rose)"
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
-		WineTaste = 'H'
+		responseData = {
+  "skype": {
+  "type": "message",
+  "attachmentLayout": "carousel",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.hero",
+      "content": {        
+        "buttons": [
+          {
+            "type": "imBack",
+            "title": "Colleague",
+            "value": "Colleague"
+          }
+        ]
+      }
+    }
+  ]
+}
+}
 	elif col == 'White' and st_of_col =='Sweet':
 		WineTaste = 'N'
 	elif col == 'White' and st_of_col =='Semi-sweet':
@@ -106,7 +125,7 @@ def makeWebhookResultForWineByTaste(data):
 	return {
 		"speech": speech,
 		"displayText": speech,
-		"data": {"skype": skype_message},
+		"data": responseData,
 		"source": "webhookdata",
 		}
 		
