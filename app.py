@@ -92,24 +92,26 @@ def makeWebhookResultForWineByTaste(data):
 			Cook’s Sparkling Wine (Rose)"
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
 		responseData = {
-  "skype": {
-  "type": "message",
-  "attachmentLayout": "carousel",
-  "attachments": [
-    {
-      "contentType": "application/vnd.microsoft.card.hero",
-      "content": {        
-        "buttons": [
-          {
-            "type": "imBack",
-            "title": "Colleague",
-            "value": "Colleague"
+    "data" : {
+        "skype" : {
+            "attachment" : {
+                "type" : "template",
+                "payload" : {
+                    "template_type" : "generic",
+                    "contentType": "application/vnd.microsoft.card.hero",
+					"content": {        
+					"buttons": [
+						{
+							"type": "imBack",
+							"title": "Colleague",
+						"value": "Colleague"
           }
         ]
       }
+                }
+            }
+        }
     }
-  ]
-}
 }
 	elif col == 'White' and st_of_col =='Sweet':
 		WineTaste = 'N'
