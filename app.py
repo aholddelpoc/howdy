@@ -121,7 +121,8 @@ def makeWebhookResultForWineByTaste(data):
 	skype_message = {
   				"skype": {
     				"text": WineTaste,
-				"data": responseData
+				"data": responseData,
+				"messages": responseData
   				}
 			}
 	
@@ -130,6 +131,7 @@ def makeWebhookResultForWineByTaste(data):
 		"displayText": speech,
 		"data": responseData,
 		"source": "webhookdata",
+		"messages": responseData
 		}
 		
 def makeWebhookResultForGetAtomicNumber(data):
