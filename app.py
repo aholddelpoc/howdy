@@ -118,7 +118,8 @@ def makeWebhookResultForWineByTaste(data):
 	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
 	skype_message = {
   				"skype": {
-    				"text": WineTaste
+    				"text": WineTaste,
+				"data": responseData
   				}
 			}
 	
