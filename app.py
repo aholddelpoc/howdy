@@ -130,12 +130,13 @@ def makeWebhookResultForWineByTaste(data):
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
 	speech = WineTaste
+	speech = WineTaste
 	skype_message = {
             "attachment": {
                 "type": "template",
                 "payload": {
                     "template_type": "generic",
-                    "data": WineTaste
+                    "elements": WineTaste
                 }
             }
     }
