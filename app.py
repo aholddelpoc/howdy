@@ -91,47 +91,62 @@ def makeWebhookResultForWineByTaste(data):
 			Value $10 & under\
 			Cook’s Sparkling Wine (Rose)"
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
-		responseData = {
-    "data" : {
-        "skype" : {
-            "attachment" : {
-                "type" : "template",
-                "payload" : {
-                    "template_type" : "generic",
-                    "contentType": "application/vnd.microsoft.card.hero",
-					"content": {        
-					"buttons": [
-						{
-							"type": "imBack",
-							"title": "Colleague",
-						"value": "Colleague"
-          }
-        ]
-      }
-                }
-            }
-        }
-    }
-}
+		WineTaste = 'H'
 	elif col == 'White' and st_of_col =='Sweet':
-		WineTaste = 'N'
+		WineTaste = '''
+		{
+ "speech": "Alright! 30 min sounds like enough time!",
+  "messages": [
+    {
+      "type": 4,
+      "platform": "skype",
+      "payload": {
+        "skype": {
+          "type": "message",
+          "attachmentLayout": "list",
+          "text": "",
+          "attachments": [
+            {
+              "contentType": "application\/vnd.microsoft.card.hero",
+              "content": {
+                "title": "Unit 2A Availibity",
+                "subtitle": "Max Participants 12",
+                "text": "",
+                "buttons": [
+                  {
+                    "type": "imBack",
+                    "title": "08:00:00\/09:00:00",
+                    "value": "08:00:00\/09:00:00"
+                  },
+                  {
+                    "type": "imBack",
+                    "title": "09:30:00\/18:00:00",
+                    "value": "09:30:00\/18:00:00"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}		
+		'''
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
 	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
 	skype_message = {
   				"skype": {
-    				"text": WineTaste,
-				"data": responseData,
-				"messages": responseData
+    				"text": WineTaste
   				}
 			}
 	
 	return {
 		"speech": speech,
 		"displayText": speech,
-		"data": responseData,
+		"data": {"skype": skype_message},
 		"source": "webhookdata",
-		"messages": responseData
 		}
 		
 def makeWebhookResultForGetAtomicNumber(data):
