@@ -135,7 +135,7 @@ def makeWebhookResultForWineByTaste(data):
                 "type": "template",
                 "payload": {
                     "template_type": "generic",
-                    "elements": WineTaste
+                    "data": WineTaste
                 }
             }
     }
