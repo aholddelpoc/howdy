@@ -91,7 +91,12 @@ def makeWebhookResultForWineByTaste(data):
 			Value $10 & under\
 			Cook’s Sparkling Wine (Rose)"
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
-		WineTaste = 'H'
+		WineTaste = '''
+		{
+  "type": "message",
+  "text": "# Welcome to **Botland**\n\nPlease visit [my blog](https://blogs.msdn.microsoft.com/tsmatsuz).\n\n---\n\nThis is a test."
+}
+		'''
 	elif col == 'White' and st_of_col =='Sweet':
 		WineTaste = 'N'
 	elif col == 'White' and st_of_col =='Semi-sweet':
