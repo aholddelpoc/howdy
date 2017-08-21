@@ -93,53 +93,15 @@ def makeWebhookResultForWineByTaste(data):
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
 		WineTaste = 'H'
 	elif col == 'White' and st_of_col =='Sweet':
-		WineTaste = '''
-		{
- "speech": "Alright! 30 min sounds like enough time!",
-"data": {
-    "skype": [
-        {
-            "text": "blabla"
-        },
-        {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-                            "title": "Some title",
-                            "subtitle": "Some subtitle",
-                            "image_url": "image url",
-                            "buttons": [
-                                {
-                                    "title": "More info",
-                                    "type": "web_url",
-                                    "url": "url"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
-    ]
-}
-}	
-		'''
+		WineTaste = 'N'
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
-	speech = WineTaste
-	speech = WineTaste
+	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
 	skype_message = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": WineTaste
-                }
-            }
-    }
+  				"skype": {
+    				"text": WineTaste
+  				}
+			}
 	
 	return {
 		"speech": speech,
