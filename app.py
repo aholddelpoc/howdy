@@ -93,8 +93,11 @@ def makeWebhookResultForWineByTaste(data):
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
 		WineTaste = '''
 		{
+		Content-Type: application/json; charset=utf-8
+		{
   "type": "message",
   "text": "# Welcome to **Botland**\n\nPlease visit [my blog](https://blogs.msdn.microsoft.com/tsmatsuz).\n\n---\n\nThis is a test."
+}
 }
 		'''
 	elif col == 'White' and st_of_col =='Sweet':
