@@ -96,42 +96,36 @@ def makeWebhookResultForWineByTaste(data):
 		WineTaste = '''
 		{
  "speech": "Alright! 30 min sounds like enough time!",
-  "messages": [
-    {
-      "type": 4,
-      "platform": "skype",
-      "payload": {
-        "skype": {
-          "type": "message",
-          "attachmentLayout": "list",
-          "text": "",
-          "attachments": [
-            {
-              "contentType": "application\/vnd.microsoft.card.hero",
-              "content": {
-                "title": "Unit 2A Availibity",
-                "subtitle": "Max Participants 12",
-                "text": "",
-                "buttons": [
-                  {
-                    "type": "imBack",
-                    "title": "08:00:00\/09:00:00",
-                    "value": "08:00:00\/09:00:00"
-                  },
-                  {
-                    "type": "imBack",
-                    "title": "09:30:00\/18:00:00",
-                    "value": "09:30:00\/18:00:00"
-                  }
-                ]
-              }
+"data": {
+    "skype": [
+        {
+            "text": "blabla"
+        },
+        {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [
+                        {
+                            "title": "Some title",
+                            "subtitle": "Some subtitle",
+                            "image_url": "image url",
+                            "buttons": [
+                                {
+                                    "title": "More info",
+                                    "type": "web_url",
+                                    "url": "url"
+                                }
+                            ]
+                        }
+                    ]
+                }
             }
-          ]
         }
-      }
-    }
-  ]
-}		
+    ]
+}
+}	
 		'''
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
