@@ -93,11 +93,52 @@ def makeWebhookResultForWineByTaste(data):
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
 		WineTaste = '''
 		{
-		Content-Type: application/json; charset=utf-8
-		{
-  "type": "message",
-  "text": "# Welcome to **Botland**\n\nPlease visit [my blog](https://blogs.msdn.microsoft.com/tsmatsuz).\n\n---\n\nThis is a test."
-}
+  "skype": {
+    "type": "message",
+    "attachmentLayout": "carousel",
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.hero",
+        "content": {
+          "text": "Which special occasion?",
+          "buttons": [
+            {
+              "type": "imBack",
+              "title": "Wine as a gift",
+              "value": "Wine as a gift"
+            },
+            {
+              "type": "imBack",
+              "title": "Wines for Date Night",
+              "value": "Wines for Date Night"
+            }
+          ]
+        }
+      },
+      {
+        "contentType": "application/vnd.microsoft.card.hero",
+        "content": {
+          "buttons": [
+            {
+              "type": "imBack",
+              "title": "Wines to Impress",
+              "value": "Wines to Impress"
+            },
+            {
+              "type": "imBack",
+              "title": "Wines for Holidays",
+              "value": "Wines for Holidays"
+            },
+            {
+              "type": "imBack",
+              "title": "Wines for Tasting Party",
+              "value": "Wines for Tasting Party"
+            }
+          ]
+        }
+      }
+    ]
+  }
 }
 		'''
 	elif col == 'White' and st_of_col =='Sweet':
