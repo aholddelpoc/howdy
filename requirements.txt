@@ -1,5 +1,4 @@
 Flask==0.10.1
 requests
 future==0.16.0
-mongodb==3.4.6
 pymongo
