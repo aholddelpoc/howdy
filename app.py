@@ -104,59 +104,182 @@ def makeWebhookResultForWineByTaste(data):
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
 		WineTaste = '''
 		{
-  "skype": {
-    "type": "message",
-    "attachmentLayout": "carousel",
-    "attachments": [
+  "id": "fc5dedd0-3fe4-4d0f-b27e-9b2263e36e48",
+  "timestamp": "2017-08-24T10:41:58.209Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "Wine as a gift",
+    "action": "",
+    "actionIncomplete": false,
+    "parameters": {},
+    "contexts": [
       {
-        "contentType": "application/vnd.microsoft.card.hero",
-        "content": {
-          "text": "Which special occasion?",
-          "buttons": [
-            {
-              "type": "imBack",
-              "title": "Wine as a gift",
-              "value": "Wine as a gift"
-            },
-            {
-              "type": "imBack",
-              "title": "Wines for Date Night",
-              "value": "Wines for Date Night"
-            }
-          ]
-        }
-      },
-      {
-        "contentType": "application/vnd.microsoft.card.hero",
-        "content": {
-          "buttons": [
-            {
-              "type": "imBack",
-              "title": "Wines to Impress",
-              "value": "Wines to Impress"
-            },
-            {
-              "type": "imBack",
-              "title": "Wines for Holidays",
-              "value": "Wines for Holidays"
-            },
-            {
-              "type": "imBack",
-              "title": "Wines for Tasting Party",
-              "value": "Wines for Tasting Party"
-            }
-          ]
-        }
+        "name": "winegift",
+        "parameters": {},
+        "lifespan": 5
       }
-    ]
-  }
+    ],
+    "metadata": {
+      "intentId": "5162d46a-f265-4fa7-b918-72f2bc3131c5",
+      "webhookUsed": "false",
+      "webhookForSlotFillingUsed": "false",
+      "intentName": "sipping point - Wine gift"
+    },
+    "fulfillment": {
+      "speech": "",
+      "messages": [
+        {
+          "type": 4,
+          "platform": "skype",
+          "payload": {
+            "skype": {
+              "type": "message",
+              "attachmentLayout": "carousel",
+              "text": "Please select your food.",
+              "attachments": [
+                {
+                  "contentType": "application/vnd.microsoft.card.hero",
+                  "content": {
+                    "title": "Highly rated wines",
+                    "subtitle": "Piccolo Tesoro ΓÇ£PTΓÇ¥ Rose Moscato 750 mL $12.99",
+                    "images": [
+                      {
+                        "url": "https://mydeploy.azurewebsites.net/sushi.png"
+                      }
+                    ],
+                    "buttons": [
+                      {
+                        "type": "imBack",
+                        "title": "View",
+                        "value": "View"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Add To Cart",
+                        "value": "Add To Cart"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Favourites",
+                        "value": "Favourites"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Wishlist",
+                        "value": "Wishlist"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "contentType": "application/vnd.microsoft.card.hero",
+                  "content": {
+                    "title": "Sipping Point Picks",
+                    "subtitle": "Louis M. Martini Amabile Moscato 750 mL $28.00",
+                    "images": [
+                      {
+                        "url": "https://mydeploy.azurewebsites.net/tenpura.jpg"
+                      }
+                    ],
+                    "buttons": [
+                      {
+                        "type": "imBack",
+                        "title": "View",
+                        "value": "View"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Add To Cart",
+                        "value": "Add To Cart"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Favourites",
+                        "value": "Favourites"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Wishlist",
+                        "value": "Wishlist"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "contentType": "application/vnd.microsoft.card.hero",
+                  "content": {
+                    "title": "Value $10 & under",
+                    "subtitle": "Barefoot Moscato 750 mL $7.99",
+                    "images": [
+                      {
+                        "url": "https://mydeploy.azurewebsites.net/tofu.jpg"
+                      }
+                    ],
+                    "buttons": [
+                      {
+                        "type": "imBack",
+                        "title": "View",
+                        "value": "View"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Add To Cart",
+                        "value": "Add To Cart"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Favourites",
+                        "value": "Favourites"
+                      },
+                      {
+                        "type": "imBack",
+                        "title": "Wishlist",
+                        "value": "Wishlist"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": 2,
+          "platform": "skype",
+          "title": "View the Items in your Cart",
+          "replies": [
+            "View Cart"
+          ]
+        },
+        {
+          "type": 0,
+          "speech": ""
+        }
+      ]
+    },
+    "score": 1.0
+  },
+  "alternateResult": {
+    "source": "domains",
+    "resolvedQuery": "Wine as a gift",
+    "actionIncomplete": false,
+    "metadata": {},
+    "fulfillment": {},
+    "score": 0.0
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "adc20fc68b624027904ef61167b67ca5"
 }
 		'''
 	elif col == 'White' and st_of_col =='Sweet':
 		WineTaste = str(dbRes1) + str(dbRes2)
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
-	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
+	speech = WineTaste
 	skype_message = {
   				"skype": {
     				"text": WineTaste
