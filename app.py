@@ -10,6 +10,7 @@ from urllib.error import HTTPError
 
 import json
 import os
+import pymongo
 
 from flask import Flask
 from flask import request
@@ -18,6 +19,11 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
+
+uri = 'mongodb://howdy:howdy@ds157723.mlab.com:57723/howdy'
+client = pymongo.MongoClient(uri)
+db = client.get_default_database()
+cursor = db.product.find({'product_id': {'$gt': 1}})
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -78,6 +84,11 @@ def makeWebhookResultForGetChemicalSymbol(data):
 	}
 	
 def makeWebhookResultForWineByTaste(data):
+	
+	# mongo db result
+	for doc in cursor:
+		dbRes1, dbRes2 = doc['product_id'], doc['name']
+		
 	col = data.get("result").get("parameters").get("color")
 	st_of_col = data.get("result").get("parameters").get("style_of_color")
 	WineTaste = 'Unknown'
@@ -142,7 +153,7 @@ def makeWebhookResultForWineByTaste(data):
 }
 		'''
 	elif col == 'White' and st_of_col =='Sweet':
-		WineTaste = 'N'
+		WineTaste = str(dbRes1) + str(dbRes2)
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
 	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
