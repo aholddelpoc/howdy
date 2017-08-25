@@ -111,7 +111,7 @@ def makeWebhookResultForWineByTaste(data):
       "platform": "skype",
       "payload": {
         "skype": {
-          "type": "message",
+          "type": "image",
           "attachmentLayout": "list",
           "text": "",
           "attachments": [
