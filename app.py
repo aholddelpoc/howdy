@@ -111,7 +111,7 @@ def makeWebhookResultForWineByTaste(data):
       "platform": "skype",
       "payload": {
         "skype": {
-          "type": "card",
+          "type": "message",
           "attachmentLayout": "list",
           "text": "",
           "attachments": [
@@ -150,8 +150,8 @@ def makeWebhookResultForWineByTaste(data):
 	
 	return {
 		"speech": speech,
-		"displayText": speech,
-		"data": {"skype": skype_message},
+		#"displayText": speech,
+		"data": {"skype": {skype_message}},
 		"source": "webhookdata",
 		}
 		
