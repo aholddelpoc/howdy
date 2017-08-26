@@ -49,7 +49,7 @@ def processRequest(req):
 		user_name = req.get("originalRequest").get("data").get("user").get("name")
 		print ('user name',user_name)
 	except:
-		print (user_name,'error')''''
+		print (user_name,'error')'''
 				
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
