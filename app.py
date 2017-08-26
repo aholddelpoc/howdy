@@ -45,11 +45,11 @@ def webhook():
 
 
 def processRequest(req):
-	try:
+	'''try:
 		user_name = req.get("originalRequest").get("data").get("user").get("name")
 		print ('user name',user_name)
 	except:
-		print (user_name,'error')
+		print (user_name,'error')''''
 				
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
@@ -100,6 +100,11 @@ def makeWebhookResultForGetChemicalSymbol(data):
 
 def makeWebhookResultForGetWineProduct(data):
 	#user_name=data.get("address").get("user").get("name")
+	try:
+		user_name = data.get("user").get("name")
+		print ('user name',user_name)
+	except:
+		print (user_name,'error')
 	wine_item = data.get("result").get("parameters").get("wine_product")
 	if wine_item not in wine_items:
 		wine_items.append(wine_item)
