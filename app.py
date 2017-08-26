@@ -89,14 +89,15 @@ def makeWebhookResultForGetChemicalSymbol(data):
 
 def makeWebhookResultForGetWineProduct(data):
 	wine_item = data.get("result").get("parameters").get("wine_product")
-	wine_items.append(wine_item)
-	result=''.join(wine_items)
-	print ('wine item'+wine_items)
-	print (result)
+	#wine_items.append(wine_item)
+	#result=''.join(wine_items)
+	#print ('wine item'+wine_items)
+	#print (result)
 	
 	
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
-	speech = ' The wine products are ' + result
+	speech = ' The wine products are ' + wine_item
+	print (speech)
 	return {
 		"speech": speech,
 		"displayText": speech,
