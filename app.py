@@ -47,9 +47,9 @@ def webhook():
 def processRequest(req):
 	try:
 		user_name = req.get("originalRequest").get("data").get("user").get("name")
-		print (user_name)
+		print ('user name',user_name)
 	except:
-		print (user_name+"error ")
+		print (user_name,'error')
 				
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
@@ -71,8 +71,7 @@ def processRequest(req):
 		res = makeWebhookResultForWineByTaste(data)
 	elif req.get("result").get("action") == "AddToCart":
 		data = req
-		res = makeWebhookResultForGetWineProduct(data)
-		res=res+' '+username
+		res = makeWebhookResultForGetWineProduct(data)		
 	elif req.get("result").get("action") == "ViewCart":
 		data = req
 		res = makeWebhookResultForViewProduct(data)
