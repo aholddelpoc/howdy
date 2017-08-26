@@ -25,6 +25,7 @@ client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 cursor = db.product.find({'product_id': {'$gt': 1}})
 wine_items=[]
+#user_name=request.get("originalRequest").get("data").get("user").get("name")
 user_name=""
 
 
@@ -45,11 +46,11 @@ def webhook():
 
 
 def processRequest(req):
-	'''try:
+	try:
 		user_name = req.get("originalRequest").get("data").get("user").get("name")
 		print ('user name',user_name)
 	except:
-		print (user_name,'error')'''
+		print (user_name,'error')
 				
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
@@ -77,7 +78,7 @@ def processRequest(req):
 		res = makeWebhookResultForViewProduct(data)
 	else:
 		return {}
-	return res
+	return res,username
 
 def makeWebhookResultForGetChemicalSymbol(data):
 	element = data.get("result").get("parameters").get("elementname")
@@ -100,11 +101,7 @@ def makeWebhookResultForGetChemicalSymbol(data):
 
 def makeWebhookResultForGetWineProduct(data):
 	#user_name=data.get("address").get("user").get("name")
-	try:
-		user_name = data.get("user").get("name")
-		print ('user name',user_name)
-	except:
-		print (user_name,'error')
+	
 	wine_item = data.get("result").get("parameters").get("wine_product")
 	if wine_item not in wine_items:
 		wine_items.append(wine_item)
