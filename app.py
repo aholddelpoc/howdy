@@ -24,6 +24,7 @@ uri = 'mongodb://howdy:howdy@ds157723.mlab.com:57723/howdy'
 client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 cursor = db.product.find({'product_id': {'$gt': 1}})
+wine_items=[]
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -88,9 +89,12 @@ def makeWebhookResultForGetChemicalSymbol(data):
 
 def makeWebhookResultForGetWineProduct(data):
 	wine_item = data.get("result").get("parameters").get("wine_product")
+	wine_items.append(wine_item)
+	result=''.join(wine_items)
+	
 	
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
-	speech = ' The wine item is '+wine_item
+	speech = ' The wine products are ' + result
 	return {
 		"speech": speech,
 		"displayText": speech,
