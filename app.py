@@ -45,13 +45,13 @@ def webhook():
 
 
 def processRequest(req):
-	'''try:
-		user_name=Request.get("originalRequest").get("data").get("address").get("user").get("name")
+	try:
+		user_name = req.get("originalRequest").get("data").get("user").get("name")
 		print (user_name)
 	except:
 		print (user_name+"error ")
 	else:
-		print ("unknown user")'''
+		print ("unknown user")
 			
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
