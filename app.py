@@ -45,13 +45,13 @@ def webhook():
 
 
 def processRequest(req):
-	try:
+	'''try:
 		user_name=Request.get("originalRequest").get("data").get("address").get("user").get("name")
 		print (user_name)
 	except:
 		print (user_name+"error ")
 	else:
-		print ("unknown user")
+		print ("unknown user")'''
 			
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
@@ -74,6 +74,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "AddToCart":
 		data = req
 		res = makeWebhookResultForGetWineProduct(data)
+	elif req.get("result").get("action") == "ViewCart":
+		data = req
+		res = makeWebhookResultForViewProduct(data)
 	else:
 		return {}
 	return res
@@ -115,7 +118,14 @@ def makeWebhookResultForGetWineProduct(data):
 		"displayText": speech,
 		"source": "webhookdata"
 	}
-	
+
+def makeWebhookResultForViewProduct(data):
+	speech = 'Wine items selected by are'+' '.join(wine_items)
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
 def makeWebhookResultForWineByTaste(data):
 	
 	# mongo db result
