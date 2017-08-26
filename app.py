@@ -78,7 +78,7 @@ def processRequest(req):
 		res = makeWebhookResultForViewProduct(data)
 	else:
 		return {}
-	return res,username
+	return res
 
 def makeWebhookResultForGetChemicalSymbol(data):
 	element = data.get("result").get("parameters").get("elementname")
