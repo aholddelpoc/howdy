@@ -46,7 +46,7 @@ def webhook():
 
 def processRequest(req):
 	try:
-		user_name=Request.get("originalRequest").get("data").get("address").get("user")
+		user_name=Request.get("originalRequest").get("data").get("address").get("user").get("name")
 		print (user_name)
 	except:
 		print (user_name+"error ")
