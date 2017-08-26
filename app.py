@@ -88,7 +88,7 @@ def makeWebhookResultForGetChemicalSymbol(data):
 	}
 
 def makeWebhookResultForGetWineProduct(data):
-	user_name=data.get("address").get("user").get("name")
+	#user_name=data.get("address").get("user").get("name")
 	wine_item = data.get("result").get("parameters").get("wine_product")
 	if wine_item not in wine_items:
 		wine_items.append(wine_item)
