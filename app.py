@@ -50,6 +50,9 @@ def processRequest(req):
 		print (user_name)
 	except:
 		print (user_name+"error ")
+	else:
+		print ("unknown user")
+			
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
 		yql_query = makeYqlQuery(req)
