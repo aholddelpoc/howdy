@@ -60,6 +60,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "WineByTaste":
 		data = req
 		res = makeWebhookResultForWineByTaste(data)
+	elif req.get("result").get("action") == "AddToCart":
+		data = req
+		res = makeWebhookResultForGetWineProduct(data)
 	else:
 		return {}
 	return res
@@ -80,6 +83,21 @@ def makeWebhookResultForGetChemicalSymbol(data):
 	return {
 		"speech": speech,
 		"displayText": speech,
+		"source": "webhookdata"
+	}
+
+def makeWebhookResultForGetWineProduct(data):
+	wine_item = data.get("result").get("parameters").get("wine_product")
+	result = wine_item[0] + wine_item[1] + wine_item[2]
+	skype_message = {
+  				"skype": {
+    				"data": result
+  				}
+			}
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"data": {"skype": {skype_message}},
 		"source": "webhookdata"
 	}
 	
