@@ -87,7 +87,9 @@ def makeWebhookResultForGetChemicalSymbol(data):
 	}
 
 def makeWebhookResultForGetWineProduct(data):
+	wine_item=[]
 	wine_item = data.get("result").get("parameters").get("wine_product")
+	
 	result = wine_item[0] + wine_item[1] + wine_item[2]
 	skype_message = {
   				"skype": {
