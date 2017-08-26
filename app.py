@@ -50,9 +50,7 @@ def processRequest(req):
 		print (user_name)
 	except:
 		print (user_name+"error ")
-	else:
-		print ("unknown user")
-			
+				
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
 		yql_query = makeYqlQuery(req)
@@ -74,6 +72,7 @@ def processRequest(req):
 	elif req.get("result").get("action") == "AddToCart":
 		data = req
 		res = makeWebhookResultForGetWineProduct(data)
+		res=res+' '+username
 	elif req.get("result").get("action") == "ViewCart":
 		data = req
 		res = makeWebhookResultForViewProduct(data)
