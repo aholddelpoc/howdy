@@ -25,6 +25,8 @@ client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 cursor = db.product.find({'product_id': {'$gt': 1}})
 wine_items=[]
+user_name=""
+
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -43,6 +45,11 @@ def webhook():
 
 
 def processRequest(req):
+	try:
+		user_name=Request.get("originalRequest").get("data").get("address").get("user")
+		print (user_name)
+	except:
+		print (user_name+"error ")
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
 		yql_query = makeYqlQuery(req)
