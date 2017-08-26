@@ -99,7 +99,7 @@ def makeWebhookResultForGetWineProduct(data):
 	
 	
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
-	speech = 'Wine items selected by '+user_name+ 'are'+' '.join(wine_items)
+	speech = 'Wine items selected by are'+' '.join(wine_items)
 	return {
 		"speech": speech,
 		"displayText": speech,
