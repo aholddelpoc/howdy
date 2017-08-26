@@ -90,15 +90,10 @@ def makeWebhookResultForGetWineProduct(data):
 	wine_item = data.get("result").get("parameters").get("wine_product")
 	
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
-	skype_message = {
-  				"skype": {
-    				"data": wine_item
-  				}
-			}
+	speech = ' The wine item is '+wine_item
 	return {
 		"speech": speech,
 		"displayText": speech,
-		"data": {"skype": {skype_message}},
 		"source": "webhookdata"
 	}
 	
