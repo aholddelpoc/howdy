@@ -112,7 +112,7 @@ def makeWebhookResultForGetWineProduct(data):
 	
 	
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
-	speech = 'Items Added to your Cart are : '+' '.join(wine_items)
+	speech = wine_item+' Item Added to your Cart.  Total Items in your Cart: '+','.join(wine_items)
 	return {
 		"speech": speech,
 		"displayText": speech,
