@@ -123,7 +123,7 @@ def makeWebhookResultForViewProduct(data):
 	if len(wine_items)==0:
 		speech = 'No Items in Your Cart'
 	else:
-		speech = 'Items in Your Cart are : '+' '.join(wine_items)
+		speech = 'Items in Your Cart are : '+', '.join(wine_items)
 	return {
 		"speech": speech,
 		"displayText": speech,
