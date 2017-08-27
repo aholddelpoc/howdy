@@ -10,7 +10,6 @@ from urllib.error import HTTPError
 
 import json
 import os
-import pymongo
 
 from flask import Flask
 from flask import request
@@ -18,15 +17,6 @@ from flask import make_response
 
 # Flask app should start in global layout
 app = Flask(__name__)
-
-
-uri = 'mongodb://howdy:howdy@ds157723.mlab.com:57723/howdy'
-client = pymongo.MongoClient(uri)
-db = client.get_default_database()
-cursor = db.product.find({'product_id': {'$gt': 1}})
-wine_items=[]
-#user_name=request.get("originalRequest").get("data").get("user").get("name")
-user_name=""
 
 
 @app.route('/webhook', methods=['POST'])
@@ -46,12 +36,6 @@ def webhook():
 
 
 def processRequest(req):
-	try:
-		user_name = req.get("originalRequest").get("data").get("user").get("name")
-		print ('user name',user_name)
-	except:
-		print (user_name,'error')
-				
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
 		yql_query = makeYqlQuery(req)
@@ -70,12 +54,6 @@ def processRequest(req):
 	elif req.get("result").get("action") == "WineByTaste":
 		data = req
 		res = makeWebhookResultForWineByTaste(data)
-	elif req.get("result").get("action") == "AddToCart":
-		data = req
-		res = makeWebhookResultForGetWineProduct(data)		
-	elif req.get("result").get("action") == "ViewCart":
-		data = req
-		res = makeWebhookResultForViewProduct(data)
 	else:
 		return {}
 	return res
@@ -98,106 +76,37 @@ def makeWebhookResultForGetChemicalSymbol(data):
 		"displayText": speech,
 		"source": "webhookdata"
 	}
-
-def makeWebhookResultForGetWineProduct(data):
-	#user_name=data.get("address").get("user").get("name")
 	
-	wine_item = data.get("result").get("parameters").get("wine_product")
-	if wine_item not in wine_items:
-		wine_items.append(wine_item)
-	
-	#result=''.join(wine_items)
-	#print ('wine item'+wine_items)
-	#print (result)
-	
-	
-	#result = wine_item[0] + wine_item[1] + wine_item[2]
-	speech = wine_item+' Item Added to '+user_name+' Cart.  Total Items in your Cart: '+','.join(wine_items)
-	return {
-		"speech": speech,
-		"displayText": speech,
-		"source": "webhookdata"
-	}
-
-def makeWebhookResultForViewProduct(data):
-	if len(wine_items)==0:
-		speech = 'No Items in Your Cart'
-	else:
-		speech = 'Items in Your Cart are : '+' '.join(wine_items)
-	return {
-		"speech": speech,
-		"displayText": speech,
-		"source": "webhookdata"
-	}
 def makeWebhookResultForWineByTaste(data):
-	
-	# mongo db result
-	for doc in cursor:
-		dbRes1, dbRes2 = doc['product_id'], doc['name']
-		
 	col = data.get("result").get("parameters").get("color")
 	st_of_col = data.get("result").get("parameters").get("style_of_color")
 	WineTaste = 'Unknown'
 	if col == 'Pink(Rose/Blush)' and st_of_col =='Light & Bubbly':
-		WineTaste = "Sparkling Wine (Rose)\
-			A crisp, sparkling blush wine with flavours of red berries\
-			Highly rated wines\
-			Domaine Carneros Brut Rose Cuvee de la Pompadour Sparkling wine (Rose)\
-			Sipping Point Picks\
-			Jacob’s Creek Rose Moscato Sparkling Wine Banfi Rosa Regale Sparkling Red Brachetto\
-			Value $10 & under\
-			Cook’s Sparkling Wine (Rose)"
+		WineTaste = ("Sparkling Wine (Rose)"
+			"A crisp, sparkling blush wine with flavours of red berries"
+			"Highly rated wines"
+			"Domaine Carneros Brut Rose Cuvee de la Pompadour Sparkling wine (Rose)"
+			"Sipping Point Picks"
+			"Jacob’s Creek Rose Moscato Sparkling Wine Banfi Rosa Regale Sparkling Red Brachetto"
+			"Value $10 & under"
+			"Cook’s Sparkling Wine (Rose)")
 	elif col == 'Red' and st_of_col =='Dry & Fruity':
-		WineTaste = '''
-		{
- "speech": "Alright! 30 min sounds like enough time!",
-  "messages": [
-    {
-      "type": 4,
-      "platform": "skype",
-      "payload": {
-        "skype": {
-          "type": "message",
-          "attachmentLayout": "list",
-          "text": "",
-          "attachments": [
-            {
-              "contentType": "application\/vnd.microsoft.card.hero",
-              "content": {
-                "title": "Unit 2A Availibity",
-                "subtitle": "Max Participants 12",
-                "text": "yes",
-                "buttons": [
-                  {
-                    "type": "imBack",
-                    "title": "yes",
-                    "value": "yes"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }
-    }
-  ]
-}
-		'''
+		WineTaste = 'H'
 	elif col == 'White' and st_of_col =='Sweet':
-		WineTaste = str(dbRes1) + str(dbRes2)
+		WineTaste = 'N'
 	elif col == 'White' and st_of_col =='Semi-sweet':
 		WineTaste = 'O'
-	speech = WineTaste
+	speech = 'Wine By Taste Preferences colour '+col+' and style '+st_of_col+' are '+WineTaste
 	skype_message = {
   				"skype": {
-    				"data": WineTaste
+    				"text": WineTaste
   				}
 			}
 	
 	return {
 		"speech": speech,
 		"displayText": speech,
-		"data": {"skype": {skype_message}},
+		"data": {"skype": skype_message},
 		"source": "webhookdata",
 		}
 		
