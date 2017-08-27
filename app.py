@@ -128,16 +128,15 @@ def makeWebhookResultForGetWineProduct(data):
 	}
 
 def makeWebhookResultForViewProduct(data):
-	if len(wine_items)==0:
-		speech = 'No Items in Your Cart'
-	else:
-		#speech = 'Items in Your Cart are : '+', '.join(wine_items)
-		user_name=getUserName(data)
+	#speech = 'Items in Your Cart are : '+', '.join(wine_items)
+	user_name=getUserName(data)
+	result = db.add_to_cart.find({"user_name":user_name,"product_name":wine_item})
+	if result.count()>0:
 		prod_list=[]
 		for row in db.add_to_cart.find({'user_name':user_name}):
 			prod_list.append(row['product_name'])
-			return prod_list			
-		speech = 'Items in Your Cart are :'+prod_list
+			
+	speech = 'Items in Your Cart are :'+', '.join(prod_list)
 	return {
 		"speech": speech,
 		"displayText": speech,
