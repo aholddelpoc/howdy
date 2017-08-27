@@ -129,7 +129,10 @@ def makeWebhookResultForViewProduct(data):
 	if len(wine_items)==0:
 		speech = 'No Items in Your Cart'
 	else:
-		speech = 'Items in Your Cart are : '+', '.join(wine_items)
+		#speech = 'Items in Your Cart are : '+', '.join(wine_items)
+		user_name=getUserName(data)
+		cursor = db.add_to_cart.find({'user_name':user_name})
+		speech = 'Items in Your Cart are :'+cursor
 	return {
 		"speech": speech,
 		"displayText": speech,
