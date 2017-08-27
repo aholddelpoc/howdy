@@ -103,19 +103,22 @@ def makeWebhookResultForGetChemicalSymbol(data):
 	}
 
 def makeWebhookResultForGetWineProduct(data):
-	#user_name=data.get("address").get("user").get("name")
+	user_name=getUserName(data)
 	
 	wine_item = data.get("result").get("parameters").get("wine_product")
 	if wine_item not in wine_items:
 		wine_items.append(wine_item)
+		db.add_to_cart.insert({"user_name":"user_name","product_name":"wine_item"})
 	
 	#result=''.join(wine_items)
 	#print ('wine item'+wine_items)
 	#print (result)
 	
-	user_name=getUserName(data)
+	
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
 	speech = wine_item+' Item Added to '+user_name+' Cart.  Total Items in your Cart: '+','.join(wine_items)
+	
+	
 	return {
 		"speech": speech,
 		"displayText": speech,
