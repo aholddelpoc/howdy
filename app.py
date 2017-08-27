@@ -26,7 +26,7 @@ db = client.get_default_database()
 cursor = db.product.find({'product_id': {'$gt': 1}})
 wine_items=[]
 #user_name=request.get("originalRequest").get("data").get("user").get("name")
-user_name=""
+
 
 
 @app.route('/webhook', methods=['POST'])
@@ -44,14 +44,17 @@ def webhook():
 	r.headers['Content-Type'] = 'application/json'
 	return r
 
-
-def processRequest(req):
+def getUserName(req):
 	try:
 		user_name = req.get("originalRequest").get("data").get("user").get("name")
 		print ('user name',user_name)
+		return user_name
 	except:
 		print (user_name,'error')
-				
+		return ""
+
+def processRequest(req):
+					
 	if req.get("result").get("action") == "yahooWeatherForecast":
 		baseurl = "https://query.yahooapis.com/v1/public/yql?"
 		yql_query = makeYqlQuery(req)
@@ -110,7 +113,7 @@ def makeWebhookResultForGetWineProduct(data):
 	#print ('wine item'+wine_items)
 	#print (result)
 	
-	
+	user_name=getUserName(data)
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
 	speech = wine_item+' Item Added to '+user_name+' Cart.  Total Items in your Cart: '+','.join(wine_items)
 	return {
