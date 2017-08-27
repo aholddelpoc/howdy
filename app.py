@@ -108,9 +108,9 @@ def makeWebhookResultForGetWineProduct(data):
 	wine_item = data.get("result").get("parameters").get("wine_product")
 	if wine_item not in wine_items:
 		wine_items.append(wine_item)
-	#result = db.add_to_cart.find({"user_name":user_name})
-	#if not result:
-	db.add_to_cart.insert({"user_name":user_name,"product_name":wine_item})
+	result = db.add_to_cart.find({"user_name":user_name,"product_name":wine_item})
+	if result.count()==0:
+		db.add_to_cart.insert({"user_name":user_name,"product_name":wine_item})
 	
 	#result=''.join(wine_items)
 	#print ('wine item'+wine_items)
