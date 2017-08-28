@@ -141,6 +141,7 @@ def makeWebhookResultForViewProduct(data):
 			prod_list.append(row['product_name'])
 			speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity']
 		#speech = 'Items in Your Cart are :'+', '.join(prod_list)
+		print (speech)
 	return {
 		"speech": speech,
 		"displayText": speech,
