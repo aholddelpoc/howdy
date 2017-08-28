@@ -136,9 +136,11 @@ def makeWebhookResultForViewProduct(data):
 		speech="No Item in your cart"
 	else:
 		prod_list=[]
+		speech = 'Items in Your Cart are :'
 		for row in db.add_to_cart.find({'user_name':user_name}):
-			prod_list.append(row['product_name'])			
-		speech = 'Items in Your Cart are :'+', '.join(prod_list)
+			prod_list.append(row['product_name'])
+			speech = speech + '\n' + row['product_name'] + '  Quantity - ' + 'row['Quantity']
+		#speech = 'Items in Your Cart are :'+', '.join(prod_list)
 	return {
 		"speech": speech,
 		"displayText": speech,
