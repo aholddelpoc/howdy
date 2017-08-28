@@ -79,6 +79,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "ViewCart":
 		data = req
 		res = makeWebhookResultForViewProduct(data)
+	elif req.get("result").get("action") == "RemoveCart":
+		data = req
+		res = makeWebhookResultForRemoveCart(data)
 	else:
 		return {}
 	return res
@@ -134,6 +137,7 @@ def makeWebhookResultForGetWineProduct(data):
 def makeWebhookResultForViewProduct(data):
 	#speech = 'Items in Your Cart are : '+', '.join(wine_items)
 	user_name=getUserName(data)
+	product_price = db.product.find({"product_name":wine_item})
 	result = db.add_to_cart.find({"user_name":user_name})
 	if result.count()==0:
 		speech="No Item in your cart"
@@ -150,6 +154,9 @@ def makeWebhookResultForViewProduct(data):
 		"displayText": speech,
 		"source": "webhookdata"
 	}
+def makeWebhookResultForRemoveCart(data):
+	user_name=getUserName(data)
+	db.add_to_cart.remove({"user_name":user_name})
 def makeWebhookResultForWineByTaste(data):
 	
 	# mongo db result
