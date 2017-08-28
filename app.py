@@ -159,7 +159,11 @@ def makeWebhookResultForRemoveCart(data):
 	db.add_to_cart.remove({"user_name":user_name})
 	speech = "Cart items are removed successfully."
 
-	
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
 def makeWebhookResultForWineByTaste(data):
 	
 	# mongo db result
