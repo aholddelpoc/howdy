@@ -139,7 +139,7 @@ def makeWebhookResultForViewProduct(data):
 		speech = 'Items in Your Cart are :'
 		for row in db.add_to_cart.find({'user_name':user_name}):
 			prod_list.append(row['product_name'])
-			speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity']
+			speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity'] + '\n'
 		#speech = 'Items in Your Cart are :'+', '.join(prod_list)
 		print (speech)
 	return {
