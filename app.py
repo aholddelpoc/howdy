@@ -161,10 +161,11 @@ def makeWebhookResultForViewProduct(data):
 def makeWebhookResultForRemoveCart(data):
 	user_name=getUserName(data)
 	cart=db.add_to_cart.remove({"user_name":user_name})
-	if cart.count()==0:
+	speech = str(cart.n) + ' items removed from the cart'
+	'''if cart.count()==0:
 		speech = "Cart items are removed successfully."
 	else:
-		speech = "Items not properly removed from the cart"
+		speech = "Items not properly removed from the cart" '''
 
 	return {
 		"speech": speech,
