@@ -26,6 +26,7 @@ db = client.get_default_database()
 cursor = db.product.find({'product_id': {'$gt': 1}})
 wine_items=[]
 #user_name=request.get("originalRequest").get("data").get("user").get("name")
+total_price=0
 
 
 
