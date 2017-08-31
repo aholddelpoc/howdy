@@ -79,6 +79,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "ViewCart":
 		data = req
 		res = makeWebhookResultForViewProduct(data)
+	elif req.get("result").get("action") == "WineWithMealFood":
+		data = req
+		res = makeWineWithMealFood(data)
 	elif req.get("result").get("action") == "RemoveCart":
 		data = req
 		res = makeWebhookResultForRemoveCart(data)
@@ -152,6 +155,25 @@ def makeWebhookResultForViewProduct(data):
 			speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(int(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
 		#speech = 'Items in Your Cart are :'+', '.join(prod_list)
 		print (speech)
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
+
+def makeWineWithMealFood(data):
+	food = db.product.find({"name":food_item},{"product_id":1,"_id":0})
+	for item in food:
+		food_item=int(item['product_id'])
+	food_wine=db.product_map.find({"product_id_food":food_item},{"product_id_wine":1,"_id":0})
+	for item in food_wine:
+		food_wine_id=str(item['product_id_wine']).split(",")
+	food_wine_id = list(map(int,food_wine_id))
+	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
+	speech = 'Matching Wine items for '+food_item+ ' are: '
+	for item in cur:
+		speech = speech + '\n' + item['name']+" Price: "+item['price'] + '\n'
+	
 	return {
 		"speech": speech,
 		"displayText": speech,
