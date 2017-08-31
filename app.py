@@ -171,10 +171,10 @@ def makeWineWithMealFood(data):
 		food_wine_id=str(item['product_id_wine']).split(",")
 	food_wine_id = list(map(int,food_wine_id))
 	print('food_wine_id : ',food_wine_id)
-	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
-	#speech = 'Matching Wine items for '+food_item+ ' are: '
-	for item in cur:
-		speech = 'Matching Wine items for '+food_item+ ' are: ' + '\n' + item['name']+" Price: "+item['price'] + '\n'
+	#cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
+	speech = 'Matching Wine items for '+food_item+ ' are: '
+	#for item in cur:
+	#	speech = 'Matching Wine items for '+food_item+ ' are: ' + '\n' + item['name']+" Price: "+item['price'] + '\n'
 	print(speech)
 	
 	return {
