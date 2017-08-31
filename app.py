@@ -162,6 +162,7 @@ def makeWebhookResultForViewProduct(data):
 	}
 
 def makeWineWithMealFood(data):
+	food_item = data.get("result").get("parameters").get("food_item")
 	food = db.product.find({"name":food_item},{"product_id":1,"_id":0})
 	for item in food:
 		food_item_id=int(item['product_id'])
