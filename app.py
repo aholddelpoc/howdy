@@ -165,6 +165,7 @@ def makeWineWithMealFood(data):
 	food = db.product.find({"name":food_item},{"product_id":1,"_id":0})
 	for item in food:
 		food_item=int(item['product_id'])
+	print (food_item)
 	food_wine=db.product_map.find({"product_id_food":food_item},{"product_id_wine":1,"_id":0})
 	for item in food_wine:
 		food_wine_id=str(item['product_id_wine']).split(",")
