@@ -117,15 +117,17 @@ def makeWebhookResultForGetWineProduct(data):
 	
 	wine_item = data.get("result").get("parameters").get("wine_product")
 	quantity = data.get("result").get("parameters").get("Quantity")
-	if wine_item not in wine_items:
-		wine_items.append(wine_item)
-	result = db.add_to_cart.find({"user_name":user_name,"product_name":wine_item})
-	prod_price=db.product.find({"name":wine_item},{"price":1,"_id":0})
-	for item in prod_price:
-		price=item['price']
+	print ('wine_item :', wine_time)
+	print ('quantity :', quantity)
+	##if wine_item not in wine_items:
+	##	wine_items.append(wine_item)
+	##result = db.add_to_cart.find({"user_name":user_name,"product_name":wine_item})
+	##prod_price=db.product.find({"name":wine_item},{"price":1,"_id":0})
+	##for item in prod_price:
+	##	price=item['price']
 			
-	if result.count()==0:
-		db.add_to_cart.insert({"user_name":user_name,"product_name":wine_item,"Quantity":quantity,"price":price})
+	##if result.count()==0:
+	##	db.add_to_cart.insert({"user_name":user_name,"product_name":wine_item,"Quantity":quantity,"price":price})
 	
 	#result=''.join(wine_items)
 	#print ('wine item'+wine_items)
@@ -134,9 +136,9 @@ def makeWebhookResultForGetWineProduct(data):
 	
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
 	#speech = wine_item+' Item Added to '+user_name+' Cart.'
-	speech = 'Items in Your Cart are :'
-	for row in db.add_to_cart.find({'user_name':user_name}):
-		speech = speech + '\n' + row['product_name'] + '\n' + '  Quantity - ' + '\n' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(int(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
+	speech = 'Items in Your Cart are :' 
+	#for row in db.add_to_cart.find({'user_name':user_name}):
+	#	speech = speech + '\n' + row['product_name'] + '\n' + '  Quantity - ' + '\n' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(int(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
 	
 	return {
 		"speech": speech,
