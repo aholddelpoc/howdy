@@ -11,6 +11,7 @@ from urllib.error import HTTPError
 import json
 import os
 import pymongo
+import random
 
 from flask import Flask
 from flask import request
@@ -83,6 +84,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "WineWithMealFood":
 		data = req
 		res = makeWineWithMealFood(data)
+	elif req.get("result").get("action") == "BuyItem":
+		data = req
+		res = makeBuyItem(data)
 	elif req.get("result").get("action") == "RemoveCart":
 		data = req
 		res = makeWebhookResultForRemoveCart(data)
@@ -182,6 +186,21 @@ def makeWineWithMealFood(data):
 		speech = speech + '\n' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
 	print(speech)
 	
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
+
+def makeBuyItem(data):
+	user_name=getUserName(data)
+	cur=db.add_to_cart.find({"user_name":user_name},{"_id":0})
+	order_id=random.randint(10000,20000)
+	for item in cur:
+		db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity']})
+	for row in db.order.find({'user_name':user_name}):
+		speech = speech + '\n' + row['order_id'] +  row['product_name'] + '  Quantity - ' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
+	db.add_to_cart.remove({"user_name":user_name})	
 	return {
 		"speech": speech,
 		"displayText": speech,
