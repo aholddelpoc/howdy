@@ -134,7 +134,7 @@ def makeWebhookResultForGetWineProduct(data):
 	speech = 'Items in Your Cart are :'
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		speech = speech + '\n' + row['product_name'] + '\n' + '  Quantity - ' + '\n' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n' 
-	sppech = speech + '\n'+ 'Please Type - Buy to order item' 	
+	speech = speech + '\n'+ 'Please Type - Buy to order item' 	
 	
 	return {
 		"speech": speech,
@@ -154,8 +154,8 @@ def makeWebhookResultForViewProduct(data):
 		speech = 'Items in Your Cart are :'
 		for row in db.add_to_cart.find({'user_name':user_name}):
 			#prod_list.append(row['product_name'])
-			speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) 
-		sppech = speech + '\n'+ 'Please Type - Buy to order item'
+			speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
+		speech = speech + 'Please Type - Buy to order item'
 		#speech = 'Items in Your Cart are :'+', '.join(prod_list)
 		print (speech)
 	return {
