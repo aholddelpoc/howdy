@@ -180,7 +180,7 @@ def makeWineWithMealFood(data):
 	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
 	speech = 'Matching Wine items for '+food_item+ ' are: '
 	for item in cur:
-		speech = speech + '\n' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n' + 'Please type 'Buy item name' +' or' +' confirm item name'+ ' to order the item' +'\n'
+		speech = speech + '\n' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n' + 'Please type '+ 'Buy item name' +' or' +' confirm item name'+ ' to order the item' +'\n'
 	print(speech)
 	
 	return {
