@@ -202,7 +202,7 @@ def makeBuyItem(data):
 		db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity']})
 	speech = 'Ordered Items are: ' 
 	for row in db.order.find({'user_name':user_name}):		
-		speech = speech + '\n' + row['order_id'] +  row['product_name'] + '  Quantity - ' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
+		speech = speech + '\n' + 'Oreder id : ' + row['order_id'] + 'Product Name : '+ row['product_name'] + '  Quantity - ' + row['Quantity'] + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
 	db.add_to_cart.remove({"user_name":user_name})	
 	return {
 		"speech": speech,
