@@ -83,9 +83,6 @@ def processRequest(req):
 	elif req.get("result").get("action") == "WineWithMealFood":
 		data = req
 		res = makeWineWithMealFood(data)
-	#elif req.get("result").get("action") == "sippingpoint-winewithmealfood.sippingpoint-winewithmealfood-yes":
-	#	data = req
-	#	res = makeWineWithMealFoodBuy(data)
 	elif req.get("result").get("action") == "RemoveCart":
 		data = req
 		res = makeWebhookResultForRemoveCart(data)
@@ -134,7 +131,7 @@ def makeWebhookResultForGetWineProduct(data):
 	
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
 	#speech = wine_item+' Item Added to '+user_name+' Cart.'
-	speech = 'Items in Your Cart are :' 
+	speech = 'Items in Your Cart are :'
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		speech = speech + '\n' + row['product_name'] + '\n' + '  Quantity - ' + '\n' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(int(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
 	
@@ -180,7 +177,7 @@ def makeWineWithMealFood(data):
 	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
 	speech = 'Matching Wine items for '+food_item+ ' are: '
 	for item in cur:
-		speech = speech + '\n' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n' + 'Please type '+ 'Add to Cart item name' + ' to add the item in your cart' +'\n'
+		speech = speech + '\n' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
 	print(speech)
 	
 	return {
@@ -189,19 +186,16 @@ def makeWineWithMealFood(data):
 		"source": "webhookdata"
 	}
 
-#def makeWineWithMealFoodBuy(data):
-#	item=data
-
 def makeWebhookResultForRemoveCart(data):
 	user_name=getUserName(data)
 	print ("Chekcing user name "+user_name)
 	cart=db.add_to_cart.remove({"user_name":user_name})
 	print (str(cart.n) + ' items removed from the cart')
 	speech = str(cart.n) + ' items removed from the cart'
-	if cart.count()==0:
+	'''if cart.count()==0:
 		speech = "Cart items are removed successfully."
 	else:
-		speech = "Items not properly removed from the cart" 
+		speech = "Items not properly removed from the cart" '''
 
 	return {
 		"speech": speech,
