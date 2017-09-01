@@ -83,6 +83,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "WineWithMealFood":
 		data = req
 		res = makeWineWithMealFood(data)
+	#elif req.get("result").get("action") == "sippingpoint-winewithmealfood.sippingpoint-winewithmealfood-yes":
+	#	data = req
+	#	res = makeWineWithMealFoodBuy(data)
 	elif req.get("result").get("action") == "RemoveCart":
 		data = req
 		res = makeWebhookResultForRemoveCart(data)
@@ -177,7 +180,7 @@ def makeWineWithMealFood(data):
 	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
 	speech = 'Matching Wine items for '+food_item+ ' are: '
 	for item in cur:
-		speech = speech + '\n' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
+		speech = speech + '\n' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n' + 'Please type 'Buy item name' +' or' +' confirm item name'+ ' to order the item' +'\n'
 	print(speech)
 	
 	return {
@@ -185,6 +188,9 @@ def makeWineWithMealFood(data):
 		"displayText": speech,
 		"source": "webhookdata"
 	}
+
+#def makeWineWithMealFoodBuy(data):
+#	item=data
 
 def makeWebhookResultForRemoveCart(data):
 	user_name=getUserName(data)
