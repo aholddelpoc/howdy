@@ -189,10 +189,10 @@ def makeWineWithMealFood(data):
 def makeWebhookResultForRemoveCart(data):
 	user_name=getUserName(data)
 	print ("Chekcing user name "+user_name)
-	cart=db.add_to_cart.remove({"user_name":user_name})
-	print (str(cart.n) + ' items removed from the cart')
-	speech = str(cart.n) + ' items removed from the cart'
-	if cart.count()==0:
+	#cart=db.add_to_cart.remove({"user_name":user_name})
+	#print (str(cart.n) + ' items removed from the cart')
+	#speech = str(cart.n) + ' items removed from the cart'
+	if db.add_to_cart.remove({"user_name":user_name}):
 		speech = "Cart items are removed successfully."
 	else:
 		speech = "Items not properly removed from the cart" 
