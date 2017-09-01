@@ -198,10 +198,10 @@ def makeWebhookResultForRemoveCart(data):
 	cart=db.add_to_cart.remove({"user_name":user_name})
 	print (str(cart.n) + ' items removed from the cart')
 	speech = str(cart.n) + ' items removed from the cart'
-	'''if cart.count()==0:
+	if cart.count()==0:
 		speech = "Cart items are removed successfully."
 	else:
-		speech = "Items not properly removed from the cart" '''
+		speech = "Items not properly removed from the cart" 
 
 	return {
 		"speech": speech,
