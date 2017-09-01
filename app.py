@@ -196,6 +196,8 @@ def makeBuyItem(data):
 	user_name=getUserName(data)
 	cur=db.add_to_cart.find({"user_name":user_name},{"_id":0})
 	order_id=random.randint(10000,20000)
+	print ("order id ", oreder_id)
+	print ("user name again ", user_name)
 	for item in cur:
 		db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity']})
 	speech = 'Ordered Items are: ' 
