@@ -91,6 +91,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "RemoveCart":
 		data = req
 		res = makeWebhookResultForRemoveCart(data)
+	elif req.get("result").get("action") == "AddToWishlist":
+		data = req
+		res = makeWebhookResultAddToWishlist(data)
 	else:
 		return {}
 	return res
@@ -115,8 +118,7 @@ def makeWebhookResultForGetChemicalSymbol(data):
 	}
 
 def makeWebhookResultForGetWineProduct(data):
-	user_name=getUserName(data)
-	
+	user_name=getUserName(data)	
 	wine_item = data.get("result").get("parameters").get("wine_product")
 	quantity = data.get("result").get("parameters").get("Quantity")
 	if wine_item not in wine_items:
@@ -217,6 +219,24 @@ def makeBuyItem(data):
 		"displayText": speech,
 		"source": "webhookdata"
 	}
+
+def makeWebhookResultAddToWishlist(data):
+	user_name=getUserName(data)	
+	wine_item = data.get("result").get("parameters").get("wine_product")
+	result = db.wishlist.find({"user_name":user_name,"product_name":wine_item})
+	if result.count()==0:
+		db.wishlist.insert({"user_name":user_name,"product_name":wine_item})
+	speech = 'Items in Your Wishlist are :'
+	for row in db.wishlist.find({'user_name':user_name}):
+		speech = speech + '\n' + ' Product Name : ' + row['product_name'] + '\n' 
+	
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
+	
+	
 
 def makeWebhookResultForRemoveCart(data):
 	user_name=getUserName(data)
