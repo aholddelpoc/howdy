@@ -202,7 +202,8 @@ def makeBuyItem(data):
 	order_cur=db.order.find({"user_name":user_name},{"_id":0})
 	for item in cur:
 		for order in order_cur:
-			if item['product_name']!=order['product_name']:
+			if item['product_name']!=order['product_name'] or order.count()==0:
+				print(test)
 				db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity']})
 	speech = ' Your Order : ' + str(order_id) + ' with order detail '
 	for row in db.order.find({'user_name':user_name}):
