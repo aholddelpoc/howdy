@@ -201,6 +201,7 @@ def makeBuyItem(data):
 	for item in cur:
 		db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity']})
 	speech = ' Your Order : ' +order_id + ' with order detail '
+	print (speech)
 	for row in db.order.find({'user_name':user_name}):		
 		speech = speech + '\n' + ' Product Name : '+ row['product_name'] + '  Quantity - ' + row['Quantity'] + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
 	db.add_to_cart.remove({"user_name":user_name})	
