@@ -210,7 +210,7 @@ def makeBuyItem(data):
 	for item in cur:
 		db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity'],"Purchase_Time":purchase_time})
 	
-	speech = ' Your Order : ' + str(order_id) + ' with order detail '
+	speech = ' Your Order Number : ' + str(order_id) + ' with order detail '
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		total=total + float(str(row['price'])[1:])*int(row['Quantity'])
 		speech = speech + '\n' + ' Product Name : '+ row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
@@ -246,7 +246,7 @@ def makeWebhookResultForViewWishlist(data):
 	if result.count()==0:
 		speech="No Item in your Wishlist"
 	else:
-		speech = 'Items in Your Cart are :'
+		speech = 'Items in Your Wishlist are :'
 		for row in db.wishlist.find({'user_name':user_name}):
 			speech = speech + '\n' + 'Product Name : '+ row['product_name'] + '\n'
 	return {
