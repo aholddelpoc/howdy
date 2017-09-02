@@ -201,12 +201,15 @@ def makeBuyItem(data):
 	total=0
 	order_cur=db.order.find({"user_name":user_name},{"_id":0})
 	if db.order.find().count()==0:
-		db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity']})
+		for item in cur:
+			db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity']})
 	else:
+		cur=db.add_to_cart.find({"user_name":user_name},{"_id":0})
 		for item in cur:
 			for order in order_cur:
-				if item['product_name']!=order['product_name']:
-					print(test)
+				if item['product_name']==order['product_name']:
+					continue
+				else:
 					db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity']})
 	speech = ' Your Order : ' + str(order_id) + ' with order detail '
 	for row in db.order.find({'user_name':user_name}):
