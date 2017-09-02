@@ -94,6 +94,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "AddToWishlist":
 		data = req
 		res = makeWebhookResultAddToWishlist(data)
+	elif req.get("result").get("action") == "ViewWishlist":
+		data = req
+		res = makeWebhookResultForViewWishlist(data)
 	else:
 		return {}
 	return res
@@ -228,13 +231,30 @@ def makeWebhookResultAddToWishlist(data):
 		db.wishlist.insert({"user_name":user_name,"product_name":wine_item})
 	speech = 'Items in Your Wishlist are :'
 	for row in db.wishlist.find({'user_name':user_name}):
-		speech = speech + '\n' + ' Product Name : ' + row['product_name'] + '\n' 
+		speech = speech + '\n' + 'Product Name : ' + row['product_name'] + '\n' 
 	
 	return {
 		"speech": speech,
 		"displayText": speech,
 		"source": "webhookdata"
 	}
+	
+def makeWebhookResultForViewWishlist(data):
+	user_name=getUserName(data)
+	result = db.wishlist.find({"user_name":user_name})
+	
+	if result.count()==0:
+		speech="No Item in your Wishlist"
+	else:
+		speech = 'Items in Your Cart are :'
+		for row in db.wishlist.find({'user_name':user_name}):
+			speech = speech + '\n' + 'Product Name : '+ row['product_name'] + '\n'
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
+
 	
 	
 
