@@ -215,7 +215,7 @@ def makeBuyItem(data):
 		total=total + float(str(row['price'])[1:])*int(row['Quantity'])
 		speech = speech + '\n' + ' Product Name : '+ row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
 	speech = speech + '\n' + ' Grand Total : ' + str('$')+str(total) + '\n' 
-	speech = speech + '\n' + ' Order will be dlivered to you within 24 hours'+'\n'	
+	speech = speech + '\n' + ' Order will be dlivered to you within 2 hours'+'\n'	
 	db.add_to_cart.remove({"user_name":user_name})	
 	return {
 		"speech": speech,
