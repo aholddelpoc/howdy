@@ -208,14 +208,14 @@ def makeBuyItem(data):
 		for item in cur:
 			for order in order_cur:
 				if item['product_name']==order['product_name']:
-					continue
+					break
 				else:
 					db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity']})
 	speech = ' Your Order : ' + str(order_id) + ' with order detail '
 	for row in db.order.find({'user_name':user_name}):
 		total=total + float(str(row['price'])[1:])*int(row['Quantity'])
-		speech = speech + '\n' + ' Product Name : '+ row['product_name'] + '  Quantity - ' + row['Quantity'] + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
-	speech = speech + '\n' + 'Grand Total : ' + str('$')+str(total) 	
+		speech = speech + '\n' + ' Product Name : '+ row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
+	speech = speech + '\n' + ' Grand Total : ' + str('$')+str(total) 	
 	db.add_to_cart.remove({"user_name":user_name})	
 	return {
 		"speech": speech,
