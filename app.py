@@ -190,7 +190,7 @@ def makeWineWithMealFood(data):
 	speech = 'Matching Wine items for '+food_item+ ' are: '
 	for item in cur:
 		speech = speech + '\n' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
-	print(speech)
+	speech = speech + '\n' + 'Please type "Add to Cart item name " to add to your Cart' + '\n'
 	
 	return {
 		"speech": speech,
