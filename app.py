@@ -197,8 +197,8 @@ def makeWineWithMealFood(data):
 	
 	
 	return {
-		"type": "message",
- 		"text": "<ss type =\"wink\">;)</ss>",
+		#"type": "message",
+ 		#"text": "<ss type =\"wink\">;)</ss>",
 		"speech": speech,
 		"displayText": speech,
 		"source": "webhookdata"
