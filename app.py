@@ -194,13 +194,11 @@ def makeWineWithMealFood(data):
 	for item in cur:
 		speech = speech + '\n' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
 	speech = speech + '\n' + 'Please type "Add to Cart item name " to add to your Cart' + '\n'
-	{
-  		"type": "message",
- 		 "text": "<ss type =\"wink\">;)</ss>"
-	}
+	
 	
 	return {
-		"message": message,
+		"type": "message",
+ 		"text": "<ss type =\"wink\">;)</ss>",
 		"speech": speech,
 		"displayText": speech,
 		"source": "webhookdata"
