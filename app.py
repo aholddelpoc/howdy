@@ -204,12 +204,13 @@ def makeBuyItem(data):
 	#order_id=random.randint(10000,20000)
 	print ("order id ", order_id)
 	print ("user name again ", user_name)
-	purchase_time=time.strftime("%d/%m/%Y-%H:%M:%S")
+	#purchase_time=time.strftime("%d/%m/%Y-%H:%M:%S")
 	total=0
 	order_cur=db.order.find({"user_name":user_name},{"_id":0})
-	for item in cur:
-		db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity'],"Purchase_Time":purchase_time})
+	#for item in cur:
+	#	db.order.insert({"order_id":order_i"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity'],"Purchase_Time":purchase_time})
 	speech = 'Thank You for Your order' + '\n'
+	print(speech)
 	#speech = ' Your Order Number : ' + str(order_id) + ' with order detail '
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		total=total + float(str(row['price'])[1:])*int(row['Quantity'])
