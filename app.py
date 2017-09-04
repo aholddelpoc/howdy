@@ -233,10 +233,11 @@ def makeBuyItem(data):
 def makeWebhookResultForFinalBuy(data):
 	user_name=getUserName(data)
 	order_id=random.randint(10000,20000)
-	order_cur=db.order.find({"user_name":user_name},{"_id":0})
+	#order_cur=db.order.find({"user_name":user_name},{"_id":0})
+	cur=db.add_to_cart.find({"user_name":user_name},{"_id":0})
 	purchase_time=time.strftime("%d/%m/%Y-%H:%M:%S")
 	for item in cur:
-		db.order.insert({"order_id":order_i"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity'],"Purchase_Time":purchase_time})
+		db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity'],"Purchase_Time":purchase_time})
 	
 	speech = 'You are Done! Your Order id is : ' + str(order_id) + '\n'
 	speech = speech + 'You can use the order id to track your order as well' + '\n'
