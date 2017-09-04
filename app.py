@@ -201,7 +201,7 @@ def makeWineWithMealFood(data):
 def makeBuyItem(data):
 	user_name=getUserName(data)
 	cur=db.add_to_cart.find({"user_name":user_name},{"_id":0})
-	order_id=random.randint(10000,20000)
+	#order_id=random.randint(10000,20000)
 	print ("order id ", order_id)
 	print ("user name again ", user_name)
 	purchase_time=time.strftime("%d/%m/%Y-%H:%M:%S")
@@ -209,13 +209,14 @@ def makeBuyItem(data):
 	order_cur=db.order.find({"user_name":user_name},{"_id":0})
 	for item in cur:
 		db.order.insert({"order_id":order_id,"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity'],"Purchase_Time":purchase_time})
-	
-	speech = ' Your Order Number : ' + str(order_id) + ' with order detail '
+	speech = 'Thank You for Your order' + '\n'
+	#speech = ' Your Order Number : ' + str(order_id) + ' with order detail '
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		total=total + float(str(row['price'])[1:])*int(row['Quantity'])
-		speech = speech + '\n' + ' Product Name : '+ row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
+		speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
 	speech = speech + '\n' + ' Grand Total : ' + str('$')+str(total) + '\n' 
-	speech = speech + '\n' + ' Order will be dlivered to you within 2 hours'+'\n'	
+	speech = speech + '\n' + ' Order will be dlivered to your default delivery address within 2 hours'+'\n'	
+	sppech = sppech + '\n' + 'To securely complete your purchase, reply with the unique "BUYCODE (eg: BUY1818)"' + '\n'
 	db.add_to_cart.remove({"user_name":user_name})	
 	return {
 		"speech": speech,
