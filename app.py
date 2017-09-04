@@ -223,7 +223,7 @@ def makeBuyItem(data):
 	speech = speech + '\n' + 'Order will be dlivered to your default delivery address within 2 hours'+'\n'	
 	print(speech)
 	speech = speech + '\n' + 'To securely complete your purchase, reply with the unique "BUYCODE (eg: BUY1818)"' + '\n'
-	db.add_to_cart.remove({"user_name":user_name})	
+	
 	return {
 		"speech": speech,
 		"displayText": speech,
@@ -241,6 +241,7 @@ def makeWebhookResultForFinalBuy(data):
 	
 	speech = 'You are Done! Your Order id is : ' + str(order_id) + '\n'
 	speech = speech + 'You can use the order id to track your order as well' + '\n'
+	db.add_to_cart.remove({"user_name":user_name})	
 	
 	return {
 		"speech": speech,
