@@ -192,7 +192,7 @@ def makeWineWithMealFood(data):
 	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
 	speech = 'Matching Wine items for '+food_item+ ' are: '
 	for item in cur:
-		speech = speech + '\n' + '<input type="checkbox" >' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
+		speech = speech + '\n' + '<input type="checkbox" name="vehicle" value="Bike"> I have a bike >' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
 	print(speech)
 	speech = speech + '\n' + 'Please type "Add to Cart item name " to add to your Cart' + '\n'
 	
