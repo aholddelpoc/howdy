@@ -216,7 +216,7 @@ def makeBuyItem(data):
 		total=total + float(str(row['price'])[1:])*int(row['Quantity'])
 		speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
 	speech = speech + '\n' + ' Grand Total : ' + str('$')+str(total) + '\n' 
-	print(sppech)
+	print(speech)
 	speech = speech + '\n' + ' Order will be dlivered to your default delivery address within 2 hours'+'\n'	
 	print(speech)
 	speech = speech + '\n' + 'To securely complete your purchase, reply with the unique "BUYCODE (eg: BUY1818)"' + '\n'
