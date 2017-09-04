@@ -202,7 +202,7 @@ def makeBuyItem(data):
 	user_name=getUserName(data)
 	cur=db.add_to_cart.find({"user_name":user_name},{"_id":0})
 	#order_id=random.randint(10000,20000)
-	print ("order id ", order_id)
+	#print ("order id ", order_id)
 	print ("user name again ", user_name)
 	#purchase_time=time.strftime("%d/%m/%Y-%H:%M:%S")
 	total=0
