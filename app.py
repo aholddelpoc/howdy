@@ -340,12 +340,17 @@ def makeWebhookResultForWineByTaste(data):
               "content": {
                 "title": "Unit 2A Availibity",
                 "subtitle": "Max Participants 12",
-                "text": "yes",
+                "text": "",
                 "buttons": [
                   {
                     "type": "imBack",
-                    "title": "yes",
-                    "value": "yes"
+                    "title": "08:00:00\/09:00:00",
+                    "value": "08:00:00\/09:00:00"
+                  },
+                  {
+                    "type": "imBack",
+                    "title": "09:30:00\/18:00:00",
+                    "value": "09:30:00\/18:00:00"
                   }
                 ]
               }
