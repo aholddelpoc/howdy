@@ -29,6 +29,7 @@ cursor = db.product.find({'product_id': {'$gt': 1}})
 wine_items=[]
 #user_name=request.get("originalRequest").get("data").get("user").get("name")
 total_price=0
+i=0
 
 
 
@@ -196,8 +197,8 @@ def makeWineWithMealFood(data):
 	speech = 'Matching Wine items for '+food_item+ ' are: '
 	#i=0
 	for item in cur:
-	#	i=i+1
-	#	print(i)
+		i=i+1
+		print(i)
 		speech = speech + '\n' + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
 	print(speech)
 	speech = speech + '\n' + 'Please type "Add to Cart item name " to add to your Cart' + '\n'
