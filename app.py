@@ -100,6 +100,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "FinalBuy":
 		data = req
 		res = makeWebhookResultForFinalBuy(data)
+	elif req.get("result").get("action") == "ModifyCart":
+		data = req
+		res = makeWebhookResultModifyCart(data)
 	else:
 		return {}
 	return res
@@ -303,6 +306,20 @@ def makeWebhookResultForRemoveCart(data):
 		"displayText": speech,
 		"source": "webhookdata"
 	}
+
+def makeWebhookResultModifyCart(data):
+	user_name=getUserName(data)
+	food_item = data.get("result").get("parameters").get("#winemealfood.Food_Item")
+	serial_number=data.get("result").get("parameters").get("number")
+	speech = "food item is :"+food_item+" and serial_number is "+serial_number
+	
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
+
+	
 def makeWebhookResultForWineByTaste(data):
 	
 	# mongo db result
