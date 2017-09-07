@@ -309,7 +309,7 @@ def makeWebhookResultForRemoveCart(data):
 
 def makeWebhookResultModifyCart(data):
 	user_name=getUserName(data)
-	food_item = data.get("result").get("parameters").get(#winemealfood.Food_Item)
+	food_item = data.get("result").get("parameters").get("winemealfood.Food_Item")
 	serial_number=data.get("result").get("parameters").get("number")
 	print("food_item ",food_item)
 	print("Serial Number ",serial_number)
