@@ -135,6 +135,7 @@ def makeWebhookResultForGetWineProduct(data):
 	food_item = data.get("result").get("parameters").get("Food_Item")
 	print(food_item)
 	print(serial_number)
+	print(type(serial_number))
 	food = db.product.find({"name":food_item},{"product_id":1,"_id":0})
 	for item in food:
 		food_item_id=int(item['product_id'])
