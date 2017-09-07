@@ -146,6 +146,10 @@ def makeWebhookResultForGetWineProduct(data):
 	for item in food_wine_id:
 		food_wine_new.append(item.split("_"))
 	print(food_wine_new)
+	for item in food_wine_new:
+		if int(item[0])==serial_number:
+			wine_item=int(item[1])
+	print(wine_item)
 	if wine_item not in wine_items:
 		wine_items.append(wine_item)
 	result = db.add_to_cart.find({"user_name":user_name,"product_name":wine_item})
@@ -220,7 +224,7 @@ def makeWineWithMealFood(data):
 	i=0
 	for item in cur:
 		i=i+1
-		speech = speech + '\n' +str(i)+")"+ item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
+		speech = speech + '\n' +str(i)+") "+ item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
 	speech = speech + '\n' + 'Please type "Add to Cart number " to add to your Cart' + '\n'
 
 	return {
