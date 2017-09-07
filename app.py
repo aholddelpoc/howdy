@@ -198,8 +198,8 @@ def makeWineWithMealFood(data):
 	i=0
 	for item in cur:
 		i=i+1
-		print(i)
-		speech = speech + '\n' + i + ")" + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
+		#print(i)
+		speech = speech + '\n' + str(i) + ")" + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
 	print(speech)
 	speech = speech + '\n' + 'Please type "Add to Cart item name " to add to your Cart' + '\n'
 	
