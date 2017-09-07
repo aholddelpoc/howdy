@@ -147,6 +147,7 @@ def makeWebhookResultForGetWineProduct(data):
 		food_wine_new.append(item.split("_"))
 	print(food_wine_new)
 	for item in food_wine_new:
+		print(int(item[0]))
 		if int(item[0])==serial_number:
 			wine_item=int(item[1])
 	print(wine_item)
