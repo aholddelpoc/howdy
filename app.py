@@ -197,28 +197,31 @@ def makeWebhookResultForViewProduct(data):
 	}
 
 def makeWineWithMealFood(data):
-	food_item = data.get("result").get("parameters").get("Food_Item")
-	#print ('food item : ', food_item)
 	food = db.product.find({"name":food_item},{"product_id":1,"_id":0})
 	for item in food:
 		food_item_id=int(item['product_id'])
-	#print ('food_item :',food_item_id)
 	food_wine=db.product_map.find({"product_id_food":food_item_id},{"product_id_wine":1,"_id":0})
 	for item in food_wine:
 		food_wine_id=str(item['product_id_wine']).split(",")
-	food_wine_id = list(map(int,food_wine_id))
-	#print('food_wine_id : ',food_wine_id)
-	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
+	food_wine_new=[]
+	for item in food_wine_id:
+		food_wine_new.append(item.split("_"))
+	
+	food_wine_new_id=[]
+	serial_no=[]
+	for item in food_wine_new:
+		food_wine_new_id.append(item[1])
+		serial_no.append(item[0])
+	food_wine_new_id = list(map(int,food_wine_new_id))
+	serial_no = list(map(int,serial_no))
+	cur=db.product.find( { "product_id" : { "$in": food_wine_new_id }})
 	speech = 'Matching Wine items for '+food_item+ ' are: '
 	i=0
 	for item in cur:
 		i=i+1
-		#print(i)
-		speech = speech + '\n' + str(i) + ") " + item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
-	print(speech)
+		speech = speech + '\n' +str(i)+")"+ item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
 	speech = speech + '\n' + 'Please type "Add to Cart number " to add to your Cart' + '\n'
-	
-	
+
 	return {
 		#"type": "message",
  		#"text": "<ss type =\"wink\">;)</ss>",
@@ -226,7 +229,6 @@ def makeWineWithMealFood(data):
 		"displayText": speech,
 		"source": "webhookdata"
 	}
-
 def makeBuyItem(data):
 	user_name=getUserName(data)
 	cur=db.add_to_cart.find({"user_name":user_name},{"_id":0})
