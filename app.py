@@ -347,7 +347,7 @@ def makeWebhookResultModifyCart(data):
 	#print("food_item ",food_item)
 	print("Serial Number ",serial_number)
 	print(type(serial_number))
-	db.add_to_cart.remove( { "Serial_no": int(serial_number) } )
+	db.add_to_cart.remove( { "serial_no": int(serial_number) } )
 	speech="Item Successfully Removed from your cart"
 	
 	#speech = "food item is :"+food_item+" and serial_number is "+serial_number
