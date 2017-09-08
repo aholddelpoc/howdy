@@ -499,10 +499,59 @@ def makeWebhookResult(data):
 	print(speech)
 
 	return {
-		"speech": speech,
-		"displayText": speech,
+		"speech": "",
+		"displayText": "",
 		# "data": data,
 		# "contextOut": [],
+		"contextOut": [
+            {
+                "name": "testcontext",
+                "lifespan": 5,
+                "parameters": {
+                	"test": "test"
+            	}
+        	}
+        ],
+        "messages": [
+            {
+            	"type": 0,
+                "speech": "Checking payload message"
+            },
+            {
+                "type": 0,
+                "platform": "skype",
+                "speech": "test message"
+            },
+            {
+                "type": 4,
+                "platform": "skype",
+                "speech": "",
+                "payload": {
+                    "skype": {
+                    "attachmentLayout": "list",
+                    "attachments": [
+                    	{
+                        "contentType": "application/vnd.microsoft.card.hero",
+                        "content": {
+                            "title": "title",
+                            "subtitle": "subtitle",
+                            "text": "hero card message",
+                            "images": [
+                            ],
+                            "buttons": [
+                            	{
+                                	"type": "imBack",
+                                	"title": "button",
+                                	"value": "howdy"
+                            	}
+                            ]
+                        }
+                    	}
+                    ]
+                    }
+                }
+            }
+        ],
 		"source": "apiai-weather-webhook-sample"
 	}
 
