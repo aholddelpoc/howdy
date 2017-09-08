@@ -176,7 +176,7 @@ def makeWebhookResultForGetWineProduct(data):
 	#speech = wine_item+' Item Added to '+user_name+' Cart.'
 	speech = 'Items in Your Cart are :'
 	for row in db.add_to_cart.find({'user_name':user_name}):
-		speech = speech + '\n' + str(row['serial_no']) + ") " + row['product_name'] + '  Quantity - ' + row['Quantity']  + '\n'+ ' Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n' 
+		speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity']  + '\n'+ ' Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n' 
 	speech = speech + '\n'+ 'Please Type - "Confirm Order" to order item' 	
 	
 	return {
