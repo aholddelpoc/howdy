@@ -134,6 +134,7 @@ def makeWebhookResultForGetWineProduct(data):
 	serial_number = data.get("result").get("parameters").get("number")
 	food_item = data.get("result").get("parameters").get("Food_Item")
 	food = db.product.find({"name":food_item},{"product_id":1,"_id":0})
+	num=1
 	for item in food:
 		food_item_id=int(item['product_id'])
 	food_wine=db.product_map.find({"product_id_food":food_item_id},{"product_id_wine":1,"_id":0})
@@ -159,7 +160,9 @@ def makeWebhookResultForGetWineProduct(data):
 		price=item['price']
 			
 	if result.count()==0:
-		db.add_to_cart.insert({"user_name":user_name,"serial_no":serial_number,"product_name":wine_item,"Quantity":quantity,"price":price})
+		db.add_to_cart.insert({"user_name":user_name,"serial_no":num,"product_name":wine_item,"Quantity":quantity,"price":price})
+		num=num+1
+		print("serial number: "+num)
 	
 	#result=''.join(wine_items)
 	#print ('wine item'+wine_items)
