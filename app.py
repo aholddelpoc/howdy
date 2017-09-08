@@ -197,10 +197,10 @@ def makeWebhookResultForViewProduct(data):
 		speech = 'Items in Your Cart are :'
 		for row in db.add_to_cart.find({'user_name':user_name}):
 			#prod_list.append(row['product_name'])
-			speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
+			speech = speech + '\n' +str(row['serial_no']) + ") " + row['product_name'] + '  Quantity - ' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
 		speech = speech + '\n' + 'Please Type - "Confirm Order" to order item'
 		#speech = 'Items in Your Cart are :'+', '.join(prod_list)
-		print (speech)
+		#print (speech)
 	return {
 		"speech": speech,
 		"displayText": speech,
