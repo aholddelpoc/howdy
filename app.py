@@ -165,7 +165,7 @@ def makeWebhookResultForGetWineProduct(data):
 		else:
 			num=result1+1
 		db.add_to_cart.insert({"user_name":user_name,"serial_no":num,"product_name":wine_item,"Quantity":quantity,"price":price})
-		print("serial number: "+num)
+		
 	
 	#result=''.join(wine_items)
 	#print ('wine item'+wine_items)
