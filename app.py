@@ -134,7 +134,6 @@ def makeWebhookResultForGetWineProduct(data):
 	serial_number = data.get("result").get("parameters").get("number")
 	food_item = data.get("result").get("parameters").get("Food_Item")
 	food = db.product.find({"name":food_item},{"product_id":1,"_id":0})
-	num=0
 	for item in food:
 		food_item_id=int(item['product_id'])
 	food_wine=db.product_map.find({"product_id_food":food_item_id},{"product_id_wine":1,"_id":0})
@@ -156,19 +155,16 @@ def makeWebhookResultForGetWineProduct(data):
 		wine_items.append(wine_item)
 	result = db.add_to_cart.find({"user_name":user_name,"product_name":wine_item})
 	prod_price=db.product.find({"name":wine_item},{"price":1,"_id":0})
-	cur2=db.product.find( { "product_id" : { "$max": "product_id" }})
-	for max1 in cur2:
-		print(max1)
 	for item in prod_price:
 		price=item['price']
 			
 	if result.count()==0:
-		#result1=db.add_to_cart.find({"user_name":user_name})
-		#if result1.count==0:
-		#	num=1
-		#else:
-			
-		db.add_to_cart.insert({"user_name":user_name,"serial_no":1,"product_name":wine_item,"Quantity":quantity,"price":price})
+		result1=db.add_to_cart.count({"user_name":user_name})
+		if result1==0:
+			num=1
+		else:
+			num=result1+1
+		db.add_to_cart.insert({"user_name":user_name,"serial_no":num,"product_name":wine_item,"Quantity":quantity,"price":price})
 		print("serial number: "+num)
 	
 	#result=''.join(wine_items)
