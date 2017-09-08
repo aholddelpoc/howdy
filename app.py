@@ -344,11 +344,14 @@ def makeWebhookResultModifyCart(data):
 	user_name=getUserName(data)
 	food_item = data.get("result").get("parameters").get("Food_Item")
 	serial_number=data.get("result").get("parameters").get("number")
-	print("food_item ",food_item)
+	#print("food_item ",food_item)
 	print("Serial Number ",serial_number)
+	print(type(serial_number)
+	db.add_to_cart.remove( { "Serial_no": serial_number } )
 	
 	speech = "food item is :"+food_item+" and serial_number is "+serial_number
 	print(speech)
+	
 	return {
 		"speech": speech,
 		"displayText": speech,
