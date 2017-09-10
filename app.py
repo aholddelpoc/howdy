@@ -189,73 +189,73 @@ def makeWebhookResultForGetWineProduct(data):
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		product_name=row['product_name']
 		image_url=row['image_url']
-	return {
-		"speech": "",
-		"displayText": "",
-		# "data": data,
-		# "contextOut": [],
-		"contextOut": [
-            {
-                "name": "testcontext",
-                "lifespan": 5,
-                "parameters": {
-                	"test": "test"
-            	}
-        	}
-        ],
-        "messages": [
-            {
-            	"type": 0,
-                "speech": "Checking payload message"
-            },
-            {
-                "type": 0,
-                "platform": "skype",
-                "speech": "test message"
-            },
-            {
-                "type": 4,
-                "platform": "skype",
-                "speech": "",
-                "payload": {
-                    "skype": {
-                    "attachmentLayout": "carousel",
-                    "attachments": [
-      {
-        "contentType": "application/vnd.microsoft.card.hero",
-        "content": {
-          "title": product_name,
-          "images": [
-            {
-              "url": image_url
-            }
-          ],
-          "buttons": [
-            {
-              "type": "imBack",
-              "title": "Locate",
-              "value": "Locate"
-            },
-            {
-              "type": "imBack",
-              "title": "Call for Assistance",
-              "value": "Call for Assistance"
-            },
-            {
-              "type": "imBack",
-              "title": "Add to Cart",
-              "value": "Add to Cart"
-            }
-          ]
-        }
-      }      
-    ]
-                    }
-                }
-            }
-        ],
-		"source": "webhookdata"
-	}
+		return {
+			"speech": "",
+			"displayText": "",
+			# "data": data,
+			# "contextOut": [],
+			"contextOut": [
+		    {
+			"name": "testcontext",
+			"lifespan": 5,
+			"parameters": {
+				"test": "test"
+			}
+			}
+		],
+		"messages": [
+		    {
+			"type": 0,
+			"speech": "Checking payload message"
+		    },
+		    {
+			"type": 0,
+			"platform": "skype",
+			"speech": "test message"
+		    },
+		    {
+			"type": 4,
+			"platform": "skype",
+			"speech": "",
+			"payload": {
+			    "skype": {
+			    "attachmentLayout": "carousel",
+			    "attachments": [
+	      {
+		"contentType": "application/vnd.microsoft.card.hero",
+		"content": {
+		  "title": product_name,
+		  "images": [
+		    {
+		      "url": image_url
+		    }
+		  ],
+		  "buttons": [
+		    {
+		      "type": "imBack",
+		      "title": "Locate",
+		      "value": "Locate"
+		    },
+		    {
+		      "type": "imBack",
+		      "title": "Call for Assistance",
+		      "value": "Call for Assistance"
+		    },
+		    {
+		      "type": "imBack",
+		      "title": "Add to Cart",
+		      "value": "Add to Cart"
+		    }
+		  ]
+		}
+	      }      
+	    ]
+			    }
+			}
+		    }
+		],
+			"source": "webhookdata"
+		}
 
 def makeWebhookResultForViewProduct(data):
 	#speech = 'Items in Your Cart are : '+', '.join(wine_items)
