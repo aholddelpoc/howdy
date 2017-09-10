@@ -319,7 +319,7 @@ def makeWineWithMealFood(data):
         		{
             			"type": 0,
             			"platform": "skype",
-            			"speech": "Please find the wines matching with  "+Food_Item
+            			"speech": "Please find the wines matching with  "+food_item
         		},
         		{
             			"type": 4,
