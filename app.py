@@ -286,8 +286,6 @@ def makeWineWithMealFood(data):
 		product_name=item['name']
 		image_url=item['image_url']
 		contents={
-        			"contentType": "application/vnd.microsoft.card.hero",
-        			"content": {
           			"title": product_name,
           			"images": [
 						    {
@@ -312,7 +310,7 @@ def makeWineWithMealFood(data):
 						    }
 						  ]
 						}
-					  }   
+					    
 		
 
 	'''return {
