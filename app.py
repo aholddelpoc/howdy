@@ -282,14 +282,15 @@ def makeWineWithMealFood(data):
 	speech = speech + '\n' + 'Please type "Add to Cart number " to add to your Cart' + '\n' '''
 	
 	data=[]
+	cur1=db.product.count( { "product_id" : { "$in": food_wine_id }})
 	for item in cur:
 		tmp_dict = {}
 		buttons = []
 		product_name=item['name']
 		image_url=item['image_url']
 		images=[{"url":image_url}]
-		for i in cur:
-			button = {"type": "imBack", "title": "Locate"+str(i['price']), "value": "Locate"+str(i['price'])}
+		for i in cur1:
+			button = {"type": "imBack", "title": "Locate"+str(i), "value": "Locate"+str(i)}
 			buttons.append(button)
 		tmp_dict["content"] = {"images": images, "buttons": buttons, "title": product_name}
 		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
