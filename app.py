@@ -299,18 +299,92 @@ def makeWineWithMealFood(data):
 	food_wine_new_id = list(map(int,food_wine_new_id))
 	serial_no = list(map(int,serial_no))
 	cur=db.product.find( { "product_id" : { "$in": food_wine_new_id }})
-	speech = 'Matching Wine items for '+food_item+ ' are: '
+	'''speech = 'Matching Wine items for '+food_item+ ' are: '
 	i=0
 	for item in cur:
 		i=i+1
 		speech = speech + '\n' +str(i)+") "+ item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
-	speech = speech + '\n' + 'Please type "Add to Cart number " to add to your Cart' + '\n'
+	speech = speech + '\n' + 'Please type "Add to Cart number " to add to your Cart' + '\n' '''
+	
+	
+	for item in cur:
+		product_name=item['name']
+		image_url=item['image_url']
+		
 
-	return {
+	'''return {
 		#"type": "message",
  		#"text": "<ss type =\"wink\">;)</ss>",
 		"speech": speech,
 		"displayText": speech,
+		"source": "webhookdata"
+	}'''
+	
+	return {
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+            {
+                "name": "testcontext",
+                "lifespan": 5,
+                "parameters": {
+                	"test": "test"
+            	}
+        	}
+        ],
+        "messages": [
+            {
+            	"type": 0,
+                "speech": "Checking payload message"
+            },
+            {
+                "type": 0,
+                "platform": "skype",
+                "speech": "test message"
+            },
+            {
+                "type": 4,
+                "platform": "skype",
+                "speech": "",
+                "payload": {
+                    "skype": {
+                    "attachmentLayout": "carousel",
+                    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.hero",
+        "content": {
+          "title": product_name,
+          "images": [
+            {
+              "url": image_url
+            }
+          ],
+          "buttons": [
+            {
+              "type": "imBack",
+              "title": "Locate",
+              "value": "Locate"
+            },
+            {
+              "type": "imBack",
+              "title": "Call for Assistance",
+              "value": "Call for Assistance"
+            },
+            {
+              "type": "imBack",
+              "title": "Add to Cart",
+              "value": "Add to Cart"
+            }
+          ]
+        }
+      }      
+    ]
+                    }
+                }
+            }
+        ],
 		"source": "webhookdata"
 	}
 def makeBuyItem(data):
