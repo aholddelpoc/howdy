@@ -154,9 +154,10 @@ def makeWebhookResultForGetWineProduct(data):
 	if wine_item not in wine_items:
 		wine_items.append(wine_item)
 	result = db.add_to_cart.find({"user_name":user_name,"product_name":wine_item})
-	prod_price=db.product.find({"name":wine_item},{"price":1,"_id":0})
+	prod_price=db.product.find({"name":wine_item},{"price":1,"image_url":1,"_id":0})
 	for item in prod_price:
 		price=item['price']
+		image=item['image_url']
 			
 	if result.count()==0:
 		result1=db.add_to_cart.count({"user_name":user_name})
@@ -164,7 +165,7 @@ def makeWebhookResultForGetWineProduct(data):
 			num=1
 		else:
 			num=result1+1
-		db.add_to_cart.insert({"user_name":user_name,"serial_no":num,"product_name":wine_item,"Quantity":quantity,"price":price})
+		db.add_to_cart.insert({"user_name":user_name,"serial_no":num,"product_name":wine_item,"Quantity":quantity,"price":price,"image_url":image})
 		
 	
 	#result=''.join(wine_items)
@@ -174,7 +175,7 @@ def makeWebhookResultForGetWineProduct(data):
 	
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
 	#speech = wine_item+' Item Added to '+user_name+' Cart.'
-	speech = 'Items in Your Cart are :'
+	'''speech = 'Items in Your Cart are :'
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		speech = speech + '\n' + str(row['serial_no']) + ") " + row['product_name'] + '  Quantity - ' + row['Quantity']  + '\n'+ ' Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n' 
 	speech = speech + '\n'+ 'Please Type - "Confirm Order" to order item' 	
@@ -182,6 +183,77 @@ def makeWebhookResultForGetWineProduct(data):
 	return {
 		"speech": speech,
 		"displayText": speech,
+		"source": "webhookdata"
+	} '''
+	
+	for row in db.add_to_cart.find({'user_name':user_name}):
+		product_name=row['product_name']
+		image_url=row['image_url']
+	return {
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+            {
+                "name": "testcontext",
+                "lifespan": 5,
+                "parameters": {
+                	"test": "test"
+            	}
+        	}
+        ],
+        "messages": [
+            {
+            	"type": 0,
+                "speech": "Checking payload message"
+            },
+            {
+                "type": 0,
+                "platform": "skype",
+                "speech": "test message"
+            },
+            {
+                "type": 4,
+                "platform": "skype",
+                "speech": "",
+                "payload": {
+                    "skype": {
+                    "attachmentLayout": "carousel",
+                    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.hero",
+        "content": {
+          "title": product_name,
+          "images": [
+            {
+              "url": image_url
+            }
+          ],
+          "buttons": [
+            {
+              "type": "imBack",
+              "title": "Locate",
+              "value": "Locate"
+            },
+            {
+              "type": "imBack",
+              "title": "Call for Assistance",
+              "value": "Call for Assistance"
+            },
+            {
+              "type": "imBack",
+              "title": "Add to Cart",
+              "value": "Add to Cart"
+            }
+          ]
+        }
+      }      
+    ]
+                    }
+                }
+            }
+        ],
 		"source": "webhookdata"
 	}
 
