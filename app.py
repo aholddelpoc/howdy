@@ -22,7 +22,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-uri = 'mongodb://howdy:howdy@ds157723.mlab.com:57723/howdy'
+uri = 'mongodb://howdy:howdy@ds157723.mlab.com:57723/howdy' 
 client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 cursor = db.product.find({'product_id': {'$gt': 1}})
@@ -528,29 +528,97 @@ def makeWebhookResult(data):
                 "speech": "",
                 "payload": {
                     "skype": {
-                    "attachmentLayout": "list",
+                    "attachmentLayout": "carousel",
                     "attachments": [
-                    	{
-                        "contentType": "application/vnd.microsoft.card.hero",
-                        "content": {
-                            "title": "title",
-                            "subtitle": "subtitle",
-                            "text": "hero card message",
-                            "images": [
-				    {
-              				"url": "http://noecommercews1098.cloudapp.net/content/images/thumbs/0000168_wilson-winery-reserve-tori-zinfandel_415.png"
-            			    }
-                            ],
-                            "buttons": [
-                            	{
-                                	"type": "imBack",
-                                	"title": "button",
-                                	"value": "howdy"
-                            	}
-                            ]
-                        }
-                    	}
-                    ]
+      {
+        "contentType": "application/vnd.microsoft.card.hero",
+        "content": {
+          "title": "Bisquick Baking & Pancake Mix",
+          "subtitle": "20% Discount - $4.49",
+          "images": [
+            {
+              "url": "http://noecommercews1098.cloudapp.net/content/images/thumbs/0000118_bisquick-baking-pancake-mix_415.jpeg"
+            }
+          ],
+          "buttons": [
+            {
+              "type": "imBack",
+              "title": "Locate",
+              "value": "Locate"
+            },
+            {
+              "type": "imBack",
+              "title": "Call for Assistance",
+              "value": "Call for Assistance"
+            },
+            {
+              "type": "imBack",
+              "title": "Add to Cart",
+              "value": "Add to Cart Bisquick Baking & Pancake Mix"
+            }
+          ]
+        }
+      },
+      {
+        "contentType": "application/vnd.microsoft.card.hero",
+        "content": {
+          "title": "General Mills Cheerios Cereal Gluten Free",
+          "subtitle": "15% Discount - $3.29",
+          "images": [
+            {
+              "url": "http://noecommercews1098.cloudapp.net/content/images/thumbs/0000108_general-mills-cheerios-cereal-gluten-free_415.jpeg"
+            }
+          ],
+          "buttons": [
+            {
+              "type": "imBack",
+              "title": "Locate",
+              "value": "Locate"
+            },
+            {
+              "type": "imBack",
+              "title": "Call for Assistance",
+              "value": "Call for Assistance"
+            },
+            {
+              "type": "imBack",
+              "title": "Add to Cart",
+              "value": "Add to Cart General Mills Cheerios Cereal Gluten Free"
+            }
+          ]
+        }
+      },
+      {
+        "contentType": "application/vnd.microsoft.card.hero",
+        "content": {
+          "title": "Kellogg's Frosted Flakes Cereal",
+          "subtitle": "15% Discount - $2.50",
+          "images": [
+            {
+              "url": "http://noecommercews1098.cloudapp.net/content/images/thumbs/0000114_kelloggs-frosted-flakes-cereal_415.jpeg"
+            }
+          ],
+          "buttons": [
+            {
+              "type": "imBack",
+              "title": "Locate",
+              "value": "Locate"
+            },
+            {
+              "type": "imBack",
+              "title": "Call for Assistance",
+              "value": "Call for Assistance"
+            },
+            {
+              "type": "imBack",
+              "title": "Add to Cart",
+              "value": "Add to Cart Kellogg's Frosted Flakes Cereal"
+            }
+          ]
+        }
+      }
+    ]
+
                     }
                 }
             }
