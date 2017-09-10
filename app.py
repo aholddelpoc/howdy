@@ -189,7 +189,7 @@ def makeWebhookResultForGetWineProduct(data):
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		product_name=row['product_name']
 		image_url=row['image_url']
-		return {
+	return {
 			"speech": "",
 			"displayText": "",
 			# "data": data,
@@ -255,7 +255,7 @@ def makeWebhookResultForGetWineProduct(data):
 		    }
 		],
 			"source": "webhookdata"
-		}
+	}
 
 def makeWebhookResultForViewProduct(data):
 	#speech = 'Items in Your Cart are : '+', '.join(wine_items)
@@ -310,6 +310,34 @@ def makeWineWithMealFood(data):
 	for item in cur:
 		product_name=item['name']
 		image_url=item['image_url']
+		contents={
+        			"contentType": "application/vnd.microsoft.card.hero",
+        			"content": {
+          			"title": product_name,
+          			"images": [
+						    {
+						      "url": image_url
+						    }
+						  ],
+						  "buttons": [
+						    {
+						      "type": "imBack",
+						      "title": "Locate",
+						      "value": "Locate"
+						    },
+						    {
+						      "type": "imBack",
+						      "title": "Call for Assistance",
+						      "value": "Call for Assistance"
+						    },
+						    {
+						      "type": "imBack",
+						      "title": "Add to Cart",
+						      "value": "Add to Cart"
+						    }
+						  ]
+						}
+					  }   
 		
 
 	'''return {
@@ -354,31 +382,7 @@ def makeWineWithMealFood(data):
                     "attachments": [
       {
         "contentType": "application/vnd.microsoft.card.hero",
-        "content": {
-          "title": product_name,
-          "images": [
-            {
-              "url": image_url
-            }
-          ],
-          "buttons": [
-            {
-              "type": "imBack",
-              "title": "Locate",
-              "value": "Locate"
-            },
-            {
-              "type": "imBack",
-              "title": "Call for Assistance",
-              "value": "Call for Assistance"
-            },
-            {
-              "type": "imBack",
-              "title": "Add to Cart",
-              "value": "Add to Cart"
-            }
-          ]
-        }
+        "content": contents
       }      
     ]
                     }
