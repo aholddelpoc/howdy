@@ -130,27 +130,15 @@ def makeWebhookResultForGetChemicalSymbol(data):
 def makeWebhookResultForGetWineProduct(data):
 	user_name=getUserName(data)	
 	quantity = data.get("result").get("parameters").get("Quantity")
-	serial_number = data.get("result").get("parameters").get("number")
-	food_item = data.get("result").get("parameters").get("Food_Item")
-	food = db.product.find({"name":food_item},{"product_id":1,"_id":0})
-	for item in food:
-		food_item_id=int(item['product_id'])
-	food_wine=db.product_map.find({"product_id_food":food_item_id},{"product_id_wine":1,"_id":0})
-	for item in food_wine:
-		food_wine_id=str(item['product_id_wine']).split(",")
-	food_wine_id = list(map(int,food_wine_id))
-	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
-	for item in cur:	
-		wine_item=str(item['name'])
-	
-		result = db.add_to_cart.find({"user_name":user_name,"product_name":wine_item})
-		prod_price=db.product.find({"name":wine_item},{"price":1,"image_url":1,"_id":0})
-		for item in prod_price:
-			price=item['price']
-			image=item['image_url']
+	item = data.get("result").get("parameters").get("wine_product")
+	result = db.add_to_cart.find({"user_name":user_name,"product_name":item})
+	prod_price=db.product.find({"name":item},{"price":1,"image_url":1,"_id":0})
+	for item in prod_price:
+		price=item['price']
+		image=item['image_url']
 			
-		if result.count()==0:
-			db.add_to_cart.insert({"user_name":user_name,"serial_no":num,"product_name":wine_item,"Quantity":quantity,"price":price,"image_url":image})
+	if result.count()==0:
+		db.add_to_cart.insert({"user_name":user_name,"product_name":item,"Quantity":quantity,"price":price,"image_url":image})
 		
 	
 	#result=''.join(wine_items)
@@ -160,87 +148,18 @@ def makeWebhookResultForGetWineProduct(data):
 	
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
 	#speech = wine_item+' Item Added to '+user_name+' Cart.'
-	'''speech = 'Items in Your Cart are :'
+	speech = 'Items in Your Cart are :'
 	for row in db.add_to_cart.find({'user_name':user_name}):
-		speech = speech + '\n' + str(row['serial_no']) + ") " + row['product_name'] + '  Quantity - ' + row['Quantity']  + '\n'+ ' Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n' 
+		speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity']  + '\n'+ ' Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n' 
 	speech = speech + '\n'+ 'Please Type - "Confirm Order" to order item' 	
 	
 	return {
 		"speech": speech,
 		"displayText": speech,
 		"source": "webhookdata"
-	} '''
+	} 
 	
-	for row in db.add_to_cart.find({'user_name':user_name}):
-		product_name=row['product_name']
-		image_url=row['image_url']
-	return {
-			"speech": "",
-			"displayText": "",
-			# "data": data,
-			# "contextOut": [],
-			"contextOut": [
-		    {
-			"name": "testcontext",
-			"lifespan": 5,
-			"parameters": {
-				"test": "test"
-			}
-			}
-		],
-		"messages": [
-		    {
-			"type": 0,
-			"speech": "Checking payload message"
-		    },
-		    {
-			"type": 0,
-			"platform": "skype",
-			"speech": "test message"
-		    },
-		    {
-			"type": 4,
-			"platform": "skype",
-			"speech": "",
-			"payload": {
-			    "skype": {
-			    "attachmentLayout": "carousel",
-			    "attachments": [
-	      {
-		"contentType": "application/vnd.microsoft.card.hero",
-		"content": {
-		  "title": product_name,
-		  "images": [
-		    {
-		      "url": image_url
-		    }
-		  ],
-		  "buttons": [
-		    {
-		      "type": "imBack",
-		      "title": "Locate",
-		      "value": "Locate"
-		    },
-		    {
-		      "type": "imBack",
-		      "title": "Call for Assistance",
-		      "value": "Call for Assistance"
-		    },
-		    {
-		      "type": "imBack",
-		      "title": "Add to Cart",
-		      "value": "Add to Cart"
-		    }
-		  ]
-		}
-	      }      
-	    ]
-			    }
-			}
-		    }
-		],
-			"source": "webhookdata"
-	}
+	
 
 def makeWebhookResultForViewProduct(data):
 	#speech = 'Items in Your Cart are : '+', '.join(wine_items)
@@ -274,13 +193,6 @@ def makeWineWithMealFood(data):
 		food_wine_id=str(item['product_id_wine']).split(",")
 	food_wine_id = list(map(int,food_wine_id))
 	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
-	'''speech = 'Matching Wine items for '+food_item+ ' are: '
-	i=0
-	for item in cur:
-		i=i+1
-		speech = speech + '\n' +str(i)+") "+ item['name']+" ( Price: "+item['price'] + " ) "+ '\n'
-	speech = speech + '\n' + 'Please type "Add to Cart number " to add to your Cart' + '\n' '''
-	
 	data=[]
 	cur1=db.product.count( { "product_id" : { "$in": food_wine_id }})
 	button_name=['Locate','Call for Assistance','Add to Cart']
