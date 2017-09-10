@@ -287,10 +287,11 @@ def makeWineWithMealFood(data):
 		buttons = []
 		product_name=item['name']
 		image_url=item['image_url']
+		images=[{"url":image_url}]
 		for i in cur:
-			button = {"type": "imBack", "title": "Locate"+str(i), "value": "Locate"+str(i)}
+			button = {"type": "imBack", "title": "Locate"+str(i['price']), "value": "Locate"+str(i['price'])}
 			buttons.append(button)
-		tmp_dict["content"] = {"images": image_url, "buttons": buttons, "title": product_name}
+		tmp_dict["content"] = {"images": images, "buttons": buttons, "title": product_name}
 		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data.append(tmp_dict)
 		
