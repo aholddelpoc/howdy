@@ -139,17 +139,9 @@ def makeWebhookResultForGetWineProduct(data):
 	food_wine=db.product_map.find({"product_id_food":food_item_id},{"product_id_wine":1,"_id":0})
 	for item in food_wine:
 		food_wine_id=str(item['product_id_wine']).split(",")
-
-	food_wine_new=[]
-	for item in food_wine_id:
-		food_wine_new.append(item.split("_"))
-	#print(food_wine_new)
-	for item in food_wine_new:
-		if item[0]==serial_number:
-			wine_id=int(item[1])
-	print(wine_id)
-	wine_cur=db.product.find({"product_id":wine_id},{"name":1,"_id":0})
-	for item in wine_cur:
+	food_wine_id = list(map(int,food_wine_id))
+	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
+	for item in cur:	
 		wine_item=str(item['name'])
 	if wine_item not in wine_items:
 		wine_items.append(wine_item)
@@ -160,11 +152,6 @@ def makeWebhookResultForGetWineProduct(data):
 		image=item['image_url']
 			
 	if result.count()==0:
-		result1=db.add_to_cart.count({"user_name":user_name})
-		if result1==0:
-			num=1
-		else:
-			num=result1+1
 		db.add_to_cart.insert({"user_name":user_name,"serial_no":num,"product_name":wine_item,"Quantity":quantity,"price":price,"image_url":image})
 		
 	
