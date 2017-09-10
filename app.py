@@ -289,7 +289,7 @@ def makeWineWithMealFood(data):
 		product_name=item['name']
 		image_url=item['image_url']
 		images=[{"url":image_url}]
-		for i in cur1:
+		for i in range(cur1):
 			button = {"type": "imBack", "title": "Locate"+str(i), "value": "Locate"+str(i)}
 			buttons.append(button)
 		tmp_dict["content"] = {"images": images, "buttons": buttons, "title": product_name}
