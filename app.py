@@ -537,6 +537,9 @@ def makeWebhookResult(data):
                             "subtitle": "subtitle",
                             "text": "hero card message",
                             "images": [
+				    {
+              				"url": "http://noecommercews1098.cloudapp.net/content/images/thumbs/0000160_howdy-menu_550.jpeg"
+            			    }
                             ],
                             "buttons": [
                             	{
