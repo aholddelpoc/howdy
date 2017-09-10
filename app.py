@@ -129,7 +129,6 @@ def makeWebhookResultForGetChemicalSymbol(data):
 
 def makeWebhookResultForGetWineProduct(data):
 	user_name=getUserName(data)	
-	#wine_item = data.get("result").get("parameters").get("wine_product")
 	quantity = data.get("result").get("parameters").get("Quantity")
 	serial_number = data.get("result").get("parameters").get("number")
 	food_item = data.get("result").get("parameters").get("Food_Item")
@@ -273,18 +272,8 @@ def makeWineWithMealFood(data):
 	food_wine=db.product_map.find({"product_id_food":food_item_id},{"product_id_wine":1,"_id":0})
 	for item in food_wine:
 		food_wine_id=str(item['product_id_wine']).split(",")
-	food_wine_new=[]
-	for item in food_wine_id:
-		food_wine_new.append(item.split("_"))
-	
-	food_wine_new_id=[]
-	serial_no=[]
-	for item in food_wine_new:
-		food_wine_new_id.append(item[1])
-		serial_no.append(item[0])
-	food_wine_new_id = list(map(int,food_wine_new_id))
-	serial_no = list(map(int,serial_no))
-	cur=db.product.find( { "product_id" : { "$in": food_wine_new_id }})
+	food_wine_id = list(map(int,food_wine_id))
+	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
 	'''speech = 'Matching Wine items for '+food_item+ ' are: '
 	i=0
 	for item in cur:
