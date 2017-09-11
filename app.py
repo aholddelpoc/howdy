@@ -164,24 +164,66 @@ def makeWebhookResultForGetWineProduct(data):
 	
 
 def makeWebhookResultForViewProduct(data):
-	#speech = 'Items in Your Cart are : '+', '.join(wine_items)
 	user_name=getUserName(data)
 	result = db.add_to_cart.find({"user_name":user_name})
-	
 	if result.count()==0:
 		speech="No Item in your cart"
 	else:
-		prod_list=[]
-		speech = 'Items in Your Cart are :'
-		for row in db.add_to_cart.find({'user_name':user_name}):
-			#prod_list.append(row['product_name'])
-			speech = speech + '\n' +str(row['serial_no']) + ") " + row['product_name'] + '  Quantity - ' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
-		speech = speech + '\n' + 'Please Type - "Confirm Order" to order item'
-		#speech = 'Items in Your Cart are :'+', '.join(prod_list)
-		#print (speech)
+		data=[]
+		button_name=['Delete','Add to Wishlist']
+		#prod_list=[]
+		for item in result:
+			tmp_dict={}
+			buttons=[]
+		#speech = 'Items in Your Cart are :'
+			product_name=item['product_name']
+			quantity=item['Quantity']
+			Price=str('$')+str(float(str(item['price'])[1:])*int(item['Quantity']))
+			for i in button_name:
+				button = {"type": "imBack", "title":i, "value":i+" "+product_name}
+				buttons.append(button)
+			tmp_dict["content"] = {"buttons": buttons, "title": product_name,"subtitle":quantity+" Price : "+price}
+			tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
+		data.append(tmp_dict)
+	
 	return {
-		"speech": speech,
-		"displayText": speech,
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+        	{
+            		"name": "testcontext",
+            		"lifespan": 5,
+            		"parameters": {
+            			"test": "test"
+        			}
+    		}
+    		],
+    		"messages": [
+        		{
+        			"type": 0,
+            			"speech": "Checking payload message"
+        		},
+        		{
+            			"type": 0,
+            			"platform": "skype",
+            			"speech": "Items in Your Cart"
+        		},
+        		{
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "carousel",
+                		"attachments": data
+				
+
+               		 }
+            	}
+        	}
+    	],
 		"source": "webhookdata"
 	}
 
