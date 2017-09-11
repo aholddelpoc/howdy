@@ -226,7 +226,9 @@ def makeWebhookResultForViewProduct(data):
                 		"skype": {
                 		"attachmentLayout": "carousel",
                 		"attachments": data
-               		 },
+               		 }
+			}
+			},
 			 {
             			"type": 4,
             			"platform": "skype",
