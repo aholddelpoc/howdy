@@ -240,7 +240,7 @@ def makeWebhookResultForViewProduct(data):
                		 }
             	}
         	}
-    	]
+    	],
 		"source": "webhookdata"
 	}
 
