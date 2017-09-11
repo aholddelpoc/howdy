@@ -188,7 +188,7 @@ def makeWebhookResultForViewProduct(data):
 		tmp1_dict={}
 		buttons1=[]
 		for j in button_confirm:
-			button = {"type": "imBack", "title":i, "value":i}
+			button = {"type": "imBack", "title":j, "value":j}
 			buttons1.append(button)
 		tmp1_dict["content"] = {"buttons": buttons1, "title":"Total"}
 		tmp1_dict["contentType"] = "application/vnd.microsoft.card.hero"
