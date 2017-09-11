@@ -134,9 +134,9 @@ def makeWebhookResultForGetWineProduct(data):
 	print(item)
 	result = db.add_to_cart.find({"user_name":user_name,"product_name":item})
 	prod_price=db.product.find({"name":item},{"price":1,"image_url":1,"_id":0})
-	for item in prod_price:
-		price=item['price']
-		image=item['image_url']
+	for prod in prod_price:
+		price=prod['price']
+		image=prod['image_url']
 			
 	if result.count()==0:
 		db.add_to_cart.insert({"user_name":user_name,"product_name":item,"Quantity":quantity,"price":price,"image_url":image})
