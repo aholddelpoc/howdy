@@ -183,6 +183,16 @@ def makeWebhookResultForViewProduct(data):
 			tmp_dict["content"] = {"buttons": buttons, "title": product_name,"subtitle":"Quantity : "+quantity+" Price : "+price}
 			tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
 			data.append(tmp_dict)
+		data1=[]
+		button_confirm=["Proceed to Checkout"]
+		tmp1_dict={}
+		buttons1=[]
+		for j in button_confirm:
+			button = {"type": "imBack", "title":i, "value":i}
+			buttons1.append(button)
+		tmp1_dict["content"] = {"buttons": buttons1, "title":"Total"}
+		tmp1_dict["contentType"] = "application/vnd.microsoft.card.hero"
+		data1.append(tmp_dict)		
 	
 	return {
 		"speech": "",
@@ -216,8 +226,15 @@ def makeWebhookResultForViewProduct(data):
                 		"skype": {
                 		"attachmentLayout": "carousel",
                 		"attachments": data
-				
-
+               		 }
+			 {
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "list",
+                		"attachments": data
                		 }
             	}
         	}
