@@ -131,7 +131,7 @@ def makeWebhookResultForGetWineProduct(data):
 	user_name=getUserName(data)	
 	quantity = data.get("result").get("parameters").get("Quantity")
 	item = data.get("result").get("parameters").get("wine_product")
-	result = db.add_to_cart.find({"user_name":user_name,"product_name":item})
+	result = db.add_to_cart.find({"user_name":user_name},{"product_name":item})
 	prod_price=db.product.find({"name":item},{"price":1,"image_url":1,"_id":0})
 	for item in prod_price:
 		price=item['price']
@@ -149,10 +149,11 @@ def makeWebhookResultForGetWineProduct(data):
 	#result = wine_item[0] + wine_item[1] + wine_item[2]
 	#speech = wine_item+' Item Added to '+user_name+' Cart.'
 	speech = 'Items in Your Cart are :'
+	print(speech)
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity']  + '\n'+ ' Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n' 
 	speech = speech + '\n'+ 'Please Type - "Confirm Order" to order item' 	
-	
+	print(speech)
 	return {
 		"speech": speech,
 		"displayText": speech,
