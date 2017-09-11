@@ -166,9 +166,7 @@ def makeWebhookResultForGetWineProduct(data):
 def makeWebhookResultForViewProduct(data):
 	user_name=getUserName(data)
 	result = db.add_to_cart.find({"user_name":user_name})
-	if result.count()==0:
-		speech="No Item in your cart"
-	else:
+	if result.count()>0:
 		data=[]
 		button_name=['Delete','Add to Wishlist']
 		#prod_list=[]
@@ -178,7 +176,7 @@ def makeWebhookResultForViewProduct(data):
 		#speech = 'Items in Your Cart are :'
 			product_name=item['product_name']
 			quantity=item['Quantity']
-			Price=str('$')+str(float(str(item['price'])[1:])*int(item['Quantity']))
+			price=str('$')+str(float(str(item['price'])[1:])*int(item['Quantity']))
 			for i in button_name:
 				button = {"type": "imBack", "title":i, "value":i+" "+product_name}
 				buttons.append(button)
