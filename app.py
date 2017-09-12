@@ -190,7 +190,7 @@ def makeWebhookResultForGetWineProduct(data):
         		{
             			"type": 0,
             			"platform": "skype",
-            			"speech": "To view your cart at anytime - Type <b>'Show Cart'</b> '\n' <b>My Cart</b>"
+            			"speech": "To view your cart at anytime - Type <b>'Show Cart'</b><u> \n </u><b>My Cart</b>"
         		},
         		{
             			"type": 4,
@@ -244,7 +244,7 @@ def makeWebhookResultForViewProduct(data):
 			data.append(tmp_dict)
 		data1=[]
 		print(total)
-		button_confirm=["Confirm Order"]
+		button_confirm=["Confirm Order","Show Cart"]
 		tmp1_dict={}
 		buttons1=[]
 		for j in button_confirm:
@@ -277,7 +277,7 @@ def makeWebhookResultForViewProduct(data):
         		{
             			"type": 0,
             			"platform": "skype",
-            			"speech": "<b>My Cart</b>"
+            			"speech": "<b><u>My Cart</u></b>"
         		},
         		{
             			"type": 4,
