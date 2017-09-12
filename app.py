@@ -194,7 +194,7 @@ def makeWineWithMealFood(data):
 	for item in food_wine:
 		food_wine_id=str(item['product_id_wine']).split(",")
 	food_wine_id = list(map(int,food_wine_id))
-	print("food_wine_id"+str(food_wine_id))
+	print("food_wine_id"+food_wine_id)
 	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
 	data=[]
 	#cur1=db.product.count( { "product_id" : { "$in": food_wine_id }})
@@ -206,6 +206,7 @@ def makeWineWithMealFood(data):
 		image_url=item['image_url']
 		images=[{"url":image_url}]
 		price=item['price']
+		print (price)
 		for i in button_name:
 			button = {"type": "imBack", "title":i, "value":i+" "+product_name}
 			buttons.append(button)
