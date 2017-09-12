@@ -159,7 +159,7 @@ def makeWebhookResultForGetWineProduct(data):
 		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data.append(tmp_dict)
 	data1=[]
-	button_confirm=["Confirm Order"]
+	button_confirm=["Confirm Order","Show Cart"]
 	tmp1_dict={}
 	buttons1=[]
 	for j in button_confirm:
@@ -184,18 +184,23 @@ def makeWebhookResultForGetWineProduct(data):
     		],
     		"messages": [
         		{
-        			"type": 0,
+        			"type": 0,				
             			"speech": "Checking payload message"
         		},
         		{
             			"type": 0,
             			"platform": "skype",
-            			"speech": "To view your cart at anytime - Type <b>'Show Cart'</b>\n <b><u>My Cart</u></b>"
+            			"speech": "To view your cart at anytime - Type <b>'Show Cart'</b>"
+        		},
+			{
+            			"type": 0,
+            			"platform": "skype",
+            			"speech": "<b>My Cart</b>"
         		},
         		{
             			"type": 4,
             			"platform": "skype",
-            			"speech": "",
+            			"speech": "<b>My Cart</b>",
             			"payload": {
                 		"skype": {
                 		"attachmentLayout": "carousel",
@@ -244,7 +249,7 @@ def makeWebhookResultForViewProduct(data):
 			data.append(tmp_dict)
 		data1=[]
 		print(total)
-		button_confirm=["Confirm Order","Show Cart"]
+		button_confirm=["Confirm Order"]
 		tmp1_dict={}
 		buttons1=[]
 		for j in button_confirm:
