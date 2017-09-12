@@ -143,6 +143,7 @@ def makeWebhookResultForGetWineProduct(data):
 		
 	
 	data=[]
+	total=0
 	button_name=['Delete','Add to Wishlist']
 	for item in db.add_to_cart.find({"user_name":user_name}):
 		total=total + float(str(item['price'])[1:])*int(item['Quantity'])
@@ -158,7 +159,6 @@ def makeWebhookResultForGetWineProduct(data):
 		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data.append(tmp_dict)
 	data1=[]
-	
 	button_confirm=["Confirm Order"]
 	tmp1_dict={}
 	buttons1=[]
