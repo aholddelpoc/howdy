@@ -153,7 +153,7 @@ def makeWebhookResultForGetWineProduct(data):
 	print(speech)
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity']  + '\n'+ ' Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n' 
-	speech = speech + '\n'+ 'Please Type - "Confirm Order" to order item' 	
+	speech = speech + '\n'+ 'Please Type - "Confirm Order" to order item or type - "Show Cart" to view/modify your cart' 	
 	print(speech)
 	return {
 		"speech": speech,
@@ -164,45 +164,103 @@ def makeWebhookResultForGetWineProduct(data):
 	
 
 def makeWebhookResultForViewProduct(data):
-	#speech = 'Items in Your Cart are : '+', '.join(wine_items)
 	user_name=getUserName(data)
+	total=0
 	result = db.add_to_cart.find({"user_name":user_name})
+	if result.count()>0:
+		data=[]
+		button_name=['Delete','Add to Wishlist']
+		#prod_list=[]
+		for item in result:
+			total=total + float(str(item['price'])[1:])*int(item['Quantity'])
+			tmp_dict={}
+			buttons=[]
+		#speech = 'Items in Your Cart are :'
+			product_name=item['product_name']
+			quantity=item['Quantity']
+			price=str('$')+str(float(str(item['price'])[1:])*int(item['Quantity']))
+			for i in button_name:
+				button = {"type": "imBack", "title":i, "value":i+" "+product_name}
+				buttons.append(button)
+			tmp_dict["content"] = {"buttons": buttons, "title": product_name,"subtitle":"Quantity : "+quantity+" Price : "+price}
+			tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
+			data.append(tmp_dict)
+		data1=[]
+		print(total)
+		button_confirm=["Proceed to Checkout"]
+		tmp1_dict={}
+		buttons1=[]
+		for j in button_confirm:
+			button = {"type": "imBack", "title":j, "value":j}
+			buttons1.append(button)
+		tmp1_dict["content"] = {"buttons": buttons1, "title":"     Grand Total : " + str("$")+str(total) }
+		tmp1_dict["contentType"] = "application/vnd.microsoft.card.hero"
+		data1.append(tmp1_dict)		
+		print(data1)
 	
-	if result.count()==0:
-		speech="No Item in your cart"
-	else:
-		prod_list=[]
-		speech = 'Items in Your Cart are :'
-		for row in db.add_to_cart.find({'user_name':user_name}):
-			#prod_list.append(row['product_name'])
-			speech = speech + '\n' +str(row['serial_no']) + ") " + row['product_name'] + '  Quantity - ' + row['Quantity'] + '\n' + 'Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
-		speech = speech + '\n' + 'Please Type - "Confirm Order" to order item'
-		#speech = 'Items in Your Cart are :'+', '.join(prod_list)
-		#print (speech)
 	return {
-		"speech": speech,
-		"displayText": speech,
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+        	{
+            		"name": "testcontext",
+            		"lifespan": 5,
+            		"parameters": {
+            			"test": "test"
+        			}
+    		}
+    		],
+    		"messages": [
+        		{
+        			"type": 0,
+            			"speech": "Checking payload message"
+        		},
+        		{
+            			"type": 0,
+            			"platform": "skype",
+            			"speech": "Items in Your Cart"
+        		},
+        		{
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "carousel",
+                		"attachments": data
+               		 }
+			}
+			},
+			 {
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "list",
+                		"attachments": data1
+               		 }
+            	}
+        	}
+    	],
 		"source": "webhookdata"
 	}
 
 def makeWineWithMealFood(data):
 	food_item = data.get("result").get("parameters").get("Food_Item")
-	print(food_item)
 	food_item="".join(str(x) for x in food_item)
 	food = db.product.find({"name":food_item},{"product_id":1,"_id":0})
 	for item in food:
 		food_item_id=int(item['product_id'])
-	print(food_item_id)
-	print(type(food_item_id))
-	
 	food_wine=db.product_map.find({"product_id_food":food_item_id},{"product_id_wine":1,"_id":0})
 	for item in food_wine:
 		food_wine_id=str(item['product_id_wine']).split(",")
 	food_wine_id = list(map(int,food_wine_id))
-	print(food_wine_id)
 	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
 	data=[]
-	#cur1=db.product.count( { "product_id" : { "$in": food_wine_id }})
+	cur1=db.product.count( { "product_id" : { "$in": food_wine_id }})
 	button_name=['Locate','Call for Assistance','Add to Cart']
 	for item in cur:
 		tmp_dict = {}
@@ -211,7 +269,6 @@ def makeWineWithMealFood(data):
 		image_url=item['image_url']
 		images=[{"url":image_url}]
 		price=item['price']
-		print (price)
 		for i in button_name:
 			button = {"type": "imBack", "title":i, "value":i+" "+product_name}
 			buttons.append(button)
@@ -363,12 +420,8 @@ def makeWebhookResultForRemoveCart(data):
 
 def makeWebhookResultModifyCart(data):
 	user_name=getUserName(data)
-	food_item = data.get("result").get("parameters").get("Food_Item")
-	serial_number=data.get("result").get("parameters").get("number")
-	#print("food_item ",food_item)
-	print("Serial Number ",serial_number)
-	print(type(serial_number))
-	db.add_to_cart.remove( { "serial_no": int(serial_number) } )
+	item = data.get("result").get("parameters").get("wine_product")
+	db.add_to_cart.remove( { "product_name": item } )
 	speech="Item Successfully Removed from your cart"
 	
 	#speech = "food item is :"+food_item+" and serial_number is "+serial_number
