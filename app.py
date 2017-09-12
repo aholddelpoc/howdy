@@ -190,7 +190,7 @@ def makeWebhookResultForGetWineProduct(data):
         		{
             			"type": 0,
             			"platform": "skype",
-            			"speech": "Your Cart Detail.+'\n'+To view your cart at anytime - Type 'Show Cart'   "
+            			"speech": "To view your cart at anytime - Type <b>'Show Cart'</b> '\n' <b>My Cart</b>"
         		},
         		{
             			"type": 4,
@@ -277,7 +277,7 @@ def makeWebhookResultForViewProduct(data):
         		{
             			"type": 0,
             			"platform": "skype",
-            			"speech": "Items in Your Cart"
+            			"speech": "<b>My Cart</b>"
         		},
         		{
             			"type": 4,
