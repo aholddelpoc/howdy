@@ -153,7 +153,7 @@ def makeWebhookResultForGetWineProduct(data):
 	print(speech)
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity']  + '\n'+ ' Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n' 
-	speech = speech + '\n'+ 'Please Type - "Confirm Order" to order item' 	
+	speech = speech + '\n'+ 'Please Type - "Confirm Order" to order item or type - "Show Cart" to view/modify your cart' 	
 	print(speech)
 	return {
 		"speech": speech,
@@ -193,7 +193,7 @@ def makeWebhookResultForViewProduct(data):
 		for j in button_confirm:
 			button = {"type": "imBack", "title":j, "value":j}
 			buttons1.append(button)
-		tmp1_dict["content"] = {"buttons": buttons1, "title":"  Grand Total : " + str("$")+str(total) }
+		tmp1_dict["content"] = {"buttons": buttons1, "title":"     Grand Total : " + str("$")+str(total) }
 		tmp1_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data1.append(tmp1_dict)		
 		print(data1)
