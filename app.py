@@ -196,6 +196,7 @@ def makeWebhookResultForViewProduct(data):
 		tmp1_dict["content"] = {"buttons": buttons1, "title":"Total Cost : "+total}
 		tmp1_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data1.append(tmp1_dict)		
+		print(data1)
 	
 	return {
 		"speech": "",
