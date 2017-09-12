@@ -155,7 +155,7 @@ def makeWebhookResultForGetWineProduct(data):
 		for i in button_name:
 			button = {"type": "imBack", "title":i, "value":i+" "+product_name}
 			buttons.append(button)
-		tmp_dict["content"] = {"text":"My Cart","buttons": buttons, "title": product_name,"subtitle":"Quantity : "+quantity+" Price : "+price}
+		tmp_dict["content"] = {"buttons": buttons, "title": product_name,"subtitle":"Quantity : "+quantity+" Price : "+price}
 		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data.append(tmp_dict)
 	data1=[]
@@ -195,7 +195,7 @@ def makeWebhookResultForGetWineProduct(data):
 			{
             			"type": 0,
             			"platform": "skype",
-            			"speech": "<b>My Cart</b>"
+            			"speech": "<b>========My Cart=========</b>"
         		},
         		{
             			"type": 4,
@@ -282,7 +282,7 @@ def makeWebhookResultForViewProduct(data):
         		{
             			"type": 0,
             			"platform": "skype",
-            			"speech": "<b><u>My Cart</u></b>"
+            			"speech": "<b>=========My Cart==========</b>"
         		},
         		{
             			"type": 4,
