@@ -142,24 +142,81 @@ def makeWebhookResultForGetWineProduct(data):
 		db.add_to_cart.insert({"user_name":user_name,"product_name":item,"Quantity":quantity,"price":price,"image_url":image})
 		
 	
-	#result=''.join(wine_items)
-	#print ('wine item'+wine_items)
-	#print (result)
+	data=[]
+	button_name=['Delete','Add to Wishlist']
+	for item in db.add_to_cart.find({"user_name":user_name}):
+		total=total + float(str(item['price'])[1:])*int(item['Quantity'])
+		tmp_dict={}
+		buttons=[]
+		product_name=item['product_name']
+		quantity=item['Quantity']
+		price=str('$')+str(float(str(item['price'])[1:])*int(item['Quantity']))
+		for i in button_name:
+			button = {"type": "imBack", "title":i, "value":i+" "+product_name}
+			buttons.append(button)
+		tmp_dict["content"] = {"buttons": buttons, "title": product_name,"subtitle":"Quantity : "+quantity+" Price : "+price}
+		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
+		data.append(tmp_dict)
+	data1=[]
 	
-	
-	#result = wine_item[0] + wine_item[1] + wine_item[2]
-	#speech = wine_item+' Item Added to '+user_name+' Cart.'
-	speech = 'Items in Your Cart are :'
-	print(speech)
-	for row in db.add_to_cart.find({'user_name':user_name}):
-		speech = speech + '\n' + row['product_name'] + '  Quantity - ' + row['Quantity']  + '\n'+ ' Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n' 
-	speech = speech + '\n'+ 'Please Type - "Confirm Order" to order item or type - "Show Cart" to view/modify your cart' 	
-	print(speech)
+	button_confirm=["Confirm Order"]
+	tmp1_dict={}
+	buttons1=[]
+	for j in button_confirm:
+		button = {"type": "imBack", "title":j, "value":j}
+		buttons1.append(button)
+	tmp1_dict["content"] = {"buttons": buttons1, "title":"     Grand Total : " + str("$")+str(total) }
+	tmp1_dict["contentType"] = "application/vnd.microsoft.card.hero"
+	data1.append(tmp1_dict)	
 	return {
-		"speech": speech,
-		"displayText": speech,
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+        	{
+            		"name": "testcontext",
+            		"lifespan": 5,
+            		"parameters": {
+            			"test": "test"
+        			}
+    		}
+    		],
+    		"messages": [
+        		{
+        			"type": 0,
+            			"speech": "Checking payload message"
+        		},
+        		{
+            			"type": 0,
+            			"platform": "skype",
+            			"speech": "Your Cart Detail.+'\n'+To view your cart at anytime - Type 'Show Cart'   "
+        		},
+        		{
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "carousel",
+                		"attachments": data
+               		 }
+			}
+			},
+			 {
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "list",
+                		"attachments": data1
+               		 }
+            	}
+        	}
+    	],
 		"source": "webhookdata"
-	} 
+	}
 	
 	
 
@@ -175,7 +232,7 @@ def makeWebhookResultForViewProduct(data):
 			total=total + float(str(item['price'])[1:])*int(item['Quantity'])
 			tmp_dict={}
 			buttons=[]
-		#speech = 'Items in Your Cart are :'
+		#speech = 'My Cart :'
 			product_name=item['product_name']
 			quantity=item['Quantity']
 			price=str('$')+str(float(str(item['price'])[1:])*int(item['Quantity']))
@@ -187,7 +244,7 @@ def makeWebhookResultForViewProduct(data):
 			data.append(tmp_dict)
 		data1=[]
 		print(total)
-		button_confirm=["Proceed to Checkout"]
+		button_confirm=["Confirm Order"]
 		tmp1_dict={}
 		buttons1=[]
 		for j in button_confirm:
