@@ -193,7 +193,7 @@ def makeWebhookResultForViewProduct(data):
 		for j in button_confirm:
 			button = {"type": "imBack", "title":j, "value":j}
 			buttons1.append(button)
-		tmp1_dict["content"] = {"buttons": buttons1, "title":"Grand Total : " + str("$")+str(total) }
+		tmp1_dict["content"] = {"buttons": buttons1, "title":"  Grand Total : " + str("$")+str(total) }
 		tmp1_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data1.append(tmp1_dict)		
 		print(data1)
@@ -419,12 +419,8 @@ def makeWebhookResultForRemoveCart(data):
 
 def makeWebhookResultModifyCart(data):
 	user_name=getUserName(data)
-	food_item = data.get("result").get("parameters").get("Food_Item")
-	serial_number=data.get("result").get("parameters").get("number")
-	#print("food_item ",food_item)
-	print("Serial Number ",serial_number)
-	print(type(serial_number))
-	db.add_to_cart.remove( { "serial_no": int(serial_number) } )
+	item = data.get("result").get("parameters").get("wine_product")
+	db.add_to_cart.remove( { "product_name": item } )
 	speech="Item Successfully Removed from your cart"
 	
 	#speech = "food item is :"+food_item+" and serial_number is "+serial_number
