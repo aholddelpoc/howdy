@@ -56,6 +56,62 @@ def getUserName(req):
 	except:
 		print (user_name,'error')
 		return ""
+	
+def product_find(cat_id):
+	cur=db.product.find( {"category_id": cat_id})
+	data=[]
+	button_name=['Locate','Call for Assistance','Add to Cart']
+	for item in cur:
+		tmp_dict = {}
+		buttons = []
+		product_name=item['name']
+		image_url=item['image_url']
+		images=[{"url":image_url}]
+		price=item['price']
+		for i in button_name:
+			button = {"type": "imBack", "title":i, "value":i+" "+product_name}
+			buttons.append(button)
+		tmp_dict["content"] = {"images": images, "buttons": buttons, "title": product_name+" "+price}
+		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
+		data.append(tmp_dict)
+		
+	return {
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+        	{
+            		"name": "testcontext",
+            		"lifespan": 5,
+            		"parameters": {
+            			"test": "test"
+        			}
+    		}
+    		],
+    		"messages": [
+        		{
+        			"type": 0,
+            			"speech": "Checking payload message"
+        		},
+        		{
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "carousel",
+                		"attachments": data
+				
+
+               		 }
+            	}
+        	}
+    	],
+		"source": "webhookdata"
+	}
+
+	
 
 def processRequest(req):
 					
@@ -498,59 +554,7 @@ def makeWebhookResultModifyCart(data):
 	}
 
 def makeWebhookResultbroffer(data):
-	cur=db.product.find( {"category_id": 200})
-	data=[]
-	button_name=['Locate','Call for Assistance','Add to Cart']
-	for item in cur:
-		tmp_dict = {}
-		buttons = []
-		product_name=item['name']
-		image_url=item['image_url']
-		images=[{"url":image_url}]
-		price=item['price']
-		for i in button_name:
-			button = {"type": "imBack", "title":i, "value":i+" "+product_name}
-			buttons.append(button)
-		tmp_dict["content"] = {"images": images, "buttons": buttons, "title": product_name+" "+price}
-		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
-		data.append(tmp_dict)
-		
-	return {
-		"speech": "",
-		"displayText": "",
-		# "data": data,
-		# "contextOut": [],
-		"contextOut": [
-        	{
-            		"name": "testcontext",
-            		"lifespan": 5,
-            		"parameters": {
-            			"test": "test"
-        			}
-    		}
-    		],
-    		"messages": [
-        		{
-        			"type": 0,
-            			"speech": "Checking payload message"
-        		},
-        		{
-            			"type": 4,
-            			"platform": "skype",
-            			"speech": "",
-            			"payload": {
-                		"skype": {
-                		"attachmentLayout": "carousel",
-                		"attachments": data
-				
-
-               		 }
-            	}
-        	}
-    	],
-		"source": "webhookdata"
-	}
-
+	return product_find(200)
 	
 
 	
