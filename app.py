@@ -92,7 +92,8 @@ def product_find(cat_id):
     		"messages": [
         		{
         			"type": 0,
-            			"speech": "Checking payload message"
+				"platform": "skype",
+            			"speech": "Please select an option"				
         		},
         		{
             			"type": 4,
