@@ -104,6 +104,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "ModifyCart":
 		data = req
 		res = makeWebhookResultModifyCart(data)
+	elif req.get("result").get("action") == "broffer":
+		data = req
+		res = makeWebhookResultbroffer(data)
 	else:
 		return {}
 	return res
@@ -493,6 +496,62 @@ def makeWebhookResultModifyCart(data):
 		"displayText": speech,
 		"source": "webhookdata"
 	}
+
+def makeWebhookResultbroffer(data):
+	cur=db.product.find( {"category_id": 200})
+	data=[]
+	button_name=['Locate','Call for Assistance','Add to Cart']
+	for item in cur:
+		tmp_dict = {}
+		buttons = []
+		product_name=item['name']
+		image_url=item['image_url']
+		images=[{"url":image_url}]
+		price=item['price']
+		for i in button_name:
+			button = {"type": "imBack", "title":i, "value":i+" "+product_name}
+			buttons.append(button)
+		tmp_dict["content"] = {"images": images, "buttons": buttons, "title": product_name+" "+price}
+		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
+		data.append(tmp_dict)
+		
+	return {
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+        	{
+            		"name": "testcontext",
+            		"lifespan": 5,
+            		"parameters": {
+            			"test": "test"
+        			}
+    		}
+    		],
+    		"messages": [
+        		{
+        			"type": 0,
+            			"speech": "Checking payload message"
+        		},
+        		{
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "carousel",
+                		"attachments": data
+				
+
+               		 }
+            	}
+        	}
+    	],
+		"source": "webhookdata"
+	}
+
+	
 
 	
 def makeWebhookResultForWineByTaste(data):
