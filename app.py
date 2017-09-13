@@ -200,7 +200,7 @@ def makeWebhookResultForGetWineProduct(data):
 	result = db.add_to_cart.find({"user_name":user_name,"product_name":item})
 	prod_price=db.product.find({"name":item},{"price":1,"image_url":1,"_id":0})
 	for prod in prod_price:
-		price=prod['price']
+		price=round(prod['price'],2)
 		image=prod['image_url']
 	
 	if result.count()==0:
@@ -216,7 +216,7 @@ def makeWebhookResultForGetWineProduct(data):
 		buttons=[]
 		product_name=item['product_name']
 		quantity=item['Quantity']
-		price=str('$')+str(round(float(str(item['price'])[1:]),2)*int(item['Quantity']))
+		price=str('$')+str(float(str(item['price'])[1:])*int(item['Quantity']))
 		for i in button_name:
 			button = {"type": "imBack", "title":i, "value":i+" "+product_name}
 			buttons.append(button)
