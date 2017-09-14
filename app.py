@@ -605,8 +605,8 @@ def makeWebhookResultwelcome(data):
         		{
             			"type": 0,
             			"platform": "skype",
-            			"speech": "'hey  '+user_name+'. Great to see you. So, What are you looking for today?'"
-        		},
+            			"speech": "hey"+user_name
+			},
         		{
             			"type": 4,
             			"platform": "skype",
