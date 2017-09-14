@@ -170,9 +170,6 @@ def processRequest(req):
 	elif req.get("result").get("action") == "seafoodoffer":
 		data = req
 		res = makeWebhookResultseafoodoffer(data)
-	elif req.get("result").get("action") == "MainDishes":
-		data = req
-		res = makeWebhookResultMainDishes(data)
 	else:
 		return {}
 	return res
@@ -303,7 +300,7 @@ def makeWebhookResultForViewProduct(data):
 	result = db.add_to_cart.find({"user_name":user_name})
 	if result.count()>0:
 		data=[]
-		button_name=['Delete','Add to Wishlist']
+		button_name=['Delete']
 		#prod_list=[]
 		for item in result:
 			total=total + float(str(item['price'])[1:])*int(item['Quantity'])
@@ -575,6 +572,7 @@ def makeWebhookResultmealoffer(data):
 
 def makeWebhookResultseafoodoffer(data):
 	return product_find(500)
+
 
 
 	
