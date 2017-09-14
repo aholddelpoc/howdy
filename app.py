@@ -610,7 +610,7 @@ def makeWebhookResultwelcome(data):
         		{
             			"type": 4,
             			"platform": "skype",
-            			"speech": "hello",
+            			"speech": "",
             			"payload": {
                 		"skype": {
                 		"attachmentLayout": "carousel",
