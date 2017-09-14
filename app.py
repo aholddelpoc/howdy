@@ -170,9 +170,6 @@ def processRequest(req):
 	elif req.get("result").get("action") == "seafoodoffer":
 		data = req
 		res = makeWebhookResultseafoodoffer(data)
-	elif req.get("result").get("action") == "input.welcome":
-		data = req
-		res = makeWebhookResultwelcome(data)
 	else:
 		return {}
 	return res
@@ -575,54 +572,7 @@ def makeWebhookResultmealoffer(data):
 
 def makeWebhookResultseafoodoffer(data):
 	return product_find(500)
-def makeWebhookResultwelcome(data):
-	user_name=getUserName(data)
-	images="http://noecommercews1098.cloudapp.net/content/images/thumbs/0000160_howdy-menu_550.jpeg"
-	button = {"type": "imBack", "title":"Got It", "value":"Got It"}
-	tmp_dict["content"] = {"images": images, "buttons": button, "title":"Hi! This is Howdy your Retail Personal Assistant.Text 'Menu' - To browse or tell me what you are looking for – more specific the better, you can text-to-buy & voila!  ","subtitle":"Need to start over? Type ”Menu” at any time."}
-	tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
-	data.append(tmp_dict)
 
-	return {
-		"speech": "",
-		"displayText": "",
-		# "data": data,
-		# "contextOut": [],
-		"contextOut": [
-        	{
-            		"name": "testcontext",
-            		"lifespan": 5,
-            		"parameters": {
-            			"test": "test"
-        			}
-    		}
-    		],
-    		"messages": [
-        		{
-        			"type": 0,
-            			"speech": "Checking payload message"
-        		},
-        		{
-            			"type": 0,
-            			"platform": "skype",
-            			"speech": "hey"+user_name
-			},
-        		{
-            			"type": 4,
-            			"platform": "skype",
-            			"speech": "",
-            			"payload": {
-                		"skype": {
-                		"attachmentLayout": "carousel",
-                		"attachments": data
-				
-
-               		 }
-            		}
-        		}
-    		],
-			"source": "webhookdata"
-		}
 
 	
 def makeWebhookResultForWineByTaste(data):
