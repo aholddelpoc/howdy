@@ -170,6 +170,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "seafoodoffer":
 		data = req
 		res = makeWebhookResultseafoodoffer(data)
+	elif req.get("result").get("action") == "seafoodoffer":
+		data = req
+		res = makeWebhookResultBrowseAisles(data)
 	else:
 		return {}
 	return res
@@ -572,6 +575,60 @@ def makeWebhookResultmealoffer(data):
 
 def makeWebhookResultseafoodoffer(data):
 	return product_find(500)
+
+def makeWebhookResultBrowseAisles(data):
+	cur=db.category.find( { "category_id" : { "$in": [200,300,400,500,600] }})
+	data=[]
+	button_name=['Show Item']
+	for item in cur:
+		tmp_dict = {}
+		buttons = []
+		category_name=item['category_name']
+		image_url=item['image_url']
+		images=[{"url":image_url}]
+		for i in button_name:
+			button = {"type": "imBack", "title":i, "value":i+" "+category_name}
+			buttons.append(button)
+		tmp_dict["content"] = {"images": images, "buttons": buttons, "title": category_name}
+		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
+		data.append(tmp_dict)
+		
+	return {
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+        	{
+            		"name": "testcontext",
+            		"lifespan": 5,
+            		"parameters": {
+            			"test": "test"
+        			}
+    		}
+    		],
+    		"messages": [
+        		{
+        			"type": 0,
+				"platform": "skype",
+            			"speech": "Please select an option"				
+        		},
+        		{
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "carousel",
+                		"attachments": data
+				
+
+               		 }
+            	}
+        	}
+    	],
+		"source": "webhookdata"
+	}
 
 
 
