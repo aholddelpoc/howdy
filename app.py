@@ -578,6 +578,10 @@ def makeWebhookResultseafoodoffer(data):
 
 def makeWebhookResultBrowseAisles(data):
 	cur=db.category.find( { "category_id" : { "$in": [200,300,400,500,600] }})
+	for item in cur:
+		category_name=item['category_name']
+	print(category_name)
+		
 	data=[]
 	button_name=['Show Item']
 	for item in cur:
@@ -592,6 +596,7 @@ def makeWebhookResultBrowseAisles(data):
 		tmp_dict["content"] = {"images": images, "buttons": buttons, "title": category_name}
 		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data.append(tmp_dict)
+		
 		
 	return {
 		"speech": "",
