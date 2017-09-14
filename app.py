@@ -578,7 +578,8 @@ def makeWebhookResultseafoodoffer(data):
 	return product_find(500)
 
 def makeWebhookResultBrowseAisles(data):
-	cur=db.category.find( { "category_id" : { "$in": [200,300,400,500,600] }})
+	cat_id=[200,300,400,500,600]
+	cur=db.category.find( { "category_id" : { "$in": cat_id }})
 	for item in cur:
 		category_name=item['category_name']
 	print(category_name)
