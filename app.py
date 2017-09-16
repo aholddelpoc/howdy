@@ -170,6 +170,12 @@ def processRequest(req):
 	elif req.get("result").get("action") == "seafoodoffer":
 		data = req
 		res = makeWebhookResultseafoodoffer(data)
+	elif req.get("result").get("action") == "produceoffer":
+		data = req
+		res = makeWebhookResultproduceoffer(data)
+	elif req.get("result").get("action") == "SoupsCannedoffer":
+		data = req
+		res = makeWebhookResultSoupsCannedoffer(data)
 	elif req.get("result").get("action") == "BrowseAisles":
 		data = req
 		res = makeWebhookResultBrowseAisles(data)
@@ -574,8 +580,14 @@ def makeWebhookResultbroffer(data):
 def makeWebhookResultmealoffer(data):
 	return product_find(300)
 
+def makeWebhookResultproduceoffer(data):
+	return product_find(400)
+
 def makeWebhookResultseafoodoffer(data):
 	return product_find(500)
+
+def makeWebhookResultSoupsCannedoffer(data):
+	return product_find(600)
 
 def makeWebhookResultBrowseAisles(data):
 	cat_id=[200,300,400,500,600]
