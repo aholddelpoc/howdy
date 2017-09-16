@@ -170,7 +170,7 @@ def processRequest(req):
 	elif req.get("result").get("action") == "seafoodoffer":
 		data = req
 		res = makeWebhookResultseafoodoffer(data)
-	elif req.get("result").get("action") == "seafoodoffer":
+	elif req.get("result").get("action") == "BrowseAisles":
 		data = req
 		res = makeWebhookResultBrowseAisles(data)
 	else:
