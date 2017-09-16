@@ -582,7 +582,7 @@ def makeWebhookResultBrowseAisles(data):
 	cur=db.category.find( { "category_id" : { "$in": cat_id }})
 	for item in cur:
 		category_name=item['category_name']
-	        print(category_name)
+		print(category_name)
 		
 	data=[]
 	for item in cur:
