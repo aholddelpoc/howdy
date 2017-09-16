@@ -582,17 +582,20 @@ def makeWebhookResultBrowseAisles(data):
 	cur=db.category.find( { "category_id" : { "$in": cat_id }})
 	for item in cur:
 		category_name=item['category_name']
-		print(category_name)
+		#print(category_name)
 		
 	data=[]
 	for item in cur:
 		tmp_dict = {}
-		buttons = []
+		#buttons = []
 		category_name=item['category_name']
 		image_url=item['image_url']
 		images=[{"url":image_url}]
-		button = {"type": "imBack", "title":"Show Item", "value":"Show Item"+" "+category_name}
-		buttons.append(button)
+		buttons = {"type": "imBack", "title":"Show Item", "value":"Show Item"+" "+category_name}
+		print(category_name)
+		print(buttons)
+		print(image_url)
+		#buttons.append(button)
 		tmp_dict["content"] = {"images": images, "buttons": buttons, "title": category_name}
 		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data.append(tmp_dict)
