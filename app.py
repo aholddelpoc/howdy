@@ -502,6 +502,7 @@ def makeWineWithMealFood(data):
 def makeWebhookResultLocateItemDetail(data):
 	cat_name = data.get("result").get("parameters").get("category")
 	loc_detail = db.category.find({"category_name":cat_name},{"location":1,"_id":0})
+	print(cat_name)
 	speech = 'Location of '+cat_name+'is :'
 	for row in loc_detail:
 		speech = speech + '\n' + row['location'] + '\n' 
