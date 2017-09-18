@@ -179,6 +179,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "BrowseAisles":
 		data = req
 		res = makeWebhookResultBrowseAisles(data)
+	elif req.get("result").get("action") == "LocateItemDetail":
+		data = req
+		res = makeWebhookResultLocateItemDetail(data)
 	else:
 		return {}
 	return res
@@ -496,6 +499,18 @@ def makeWineWithMealFood(data):
 		"source": "webhookdata"
 	}
 
+def makeWebhookResultLocateItemDetail(data):
+	cat_name = data.get("result").get("parameters").get("category")
+	loc_detail = db.category.find({"category_name":cat_name},{"location":1,"_id":0})
+	speech = 'Location of '+cat_name+'is :'
+	for row in loc_detail:
+		speech = speech + '\n' + row['location'] + '\n' 
+	
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
 	
 	
 def makeBuyItem(data):
@@ -626,6 +641,7 @@ def makeWebhookResultseafoodoffer(data):
 
 def makeWebhookResultSoupsCannedoffer(data):
 	return product_find(600)
+
 
 def makeWebhookResultBrowseAisles(data):
 	cat_id=[200,300,400,500,600]
