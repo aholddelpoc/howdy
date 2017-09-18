@@ -518,11 +518,11 @@ def makeWebhookResultLocateItemDetail(data):
 
 def makeWebhookResultLocateProduct(data):
 	prod_name = data.get("result").get("parameters").get("wine_product")
-	print(prod_name)
-	for item in prod_name:
-		prod_cat_id=item['category_id']
-	print(prod_cat_id)
-	cat_loc=db.category.find({"category_id":prod_cat_id},{"location":1,"_id":0})
+	cat = db.product.find({"name":prod_name},{"category_id":1,"_id":0})
+	for item in cat:
+		cat_item_id=int(item['category_id'])
+	print(cat_item_id)
+	cat_loc=db.category.find({"category_id":cat_item_id},{"location":1,"_id":0})
 	speech = 'Location of '+prod_name+' is :'
 	for loc in cat_loc:
 		speech = speech + '\n' + loc['location'] + '\n' 
