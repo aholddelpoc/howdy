@@ -308,6 +308,16 @@ def makeWebhookResultForViewProduct(data):
 	total=0
 	result = db.add_to_cart.find({"user_name":user_name})
 	if result.count()==0:
+		data1=[]
+		button_confirm=["Continue Shopping"]
+		tmp1_dict={}
+		buttons1=[]
+		for j in button_confirm:
+			button = {"type": "imBack", "title":j, "value":j}
+			buttons1.append(button)
+		tmp1_dict["content"] = {"buttons": buttons1}
+		tmp1_dict["contentType"] = "application/vnd.microsoft.card.hero"
+		data1.append(tmp1_dict)
 		return {
 		"speech": "",
 		"displayText": "",
@@ -331,7 +341,18 @@ def makeWebhookResultForViewProduct(data):
             			"type": 0,
             			"platform": "skype",
             			"speech": "<b>No Items in your cart</b>"
-        		}
+        		},
+			{
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "list",
+                		"attachments": data1
+               		 }
+            	}
+        	}
 			],
 		"source": "webhookdata"
 		}
