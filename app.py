@@ -644,7 +644,7 @@ def makeWebhookResultModifyCart(data):
 	for j in button_confirm:
 		button = {"type": "imBack", "title":j, "value":j}
 		buttons1.append(button)
-	tmp1_dict["content"] = {"buttons": buttons1,"title":"         Item Successfully removed from your cart"}
+	tmp1_dict["content"] = {"buttons": buttons1,"title":"Item Successfully removed from your cart"}
 	tmp1_dict["contentType"] = "application/vnd.microsoft.card.hero"
 	data1.append(tmp1_dict)
 	return {
