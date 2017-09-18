@@ -307,7 +307,36 @@ def makeWebhookResultForViewProduct(data):
 	user_name=getUserName(data)
 	total=0
 	result = db.add_to_cart.find({"user_name":user_name})
-	if result.count()>0:
+	if result.count()==0:
+		return {
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+        	{
+            		"name": "testcontext",
+            		"lifespan": 5,
+            		"parameters": {
+            			"test": "test"
+        			}
+    		}
+    		],
+    		"messages": [
+        		{
+        			"type": 0,
+            			"speech": "Checking payload message"
+        		},
+        		{
+            			"type": 0,
+            			"platform": "skype",
+            			"speech": "<b>No Items in your cart</b>"
+        		}
+			],
+		"source": "webhookdata"
+		}
+	
+	else:
 		data=[]
 		button_name=['Delete']
 		#prod_list=[]
