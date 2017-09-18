@@ -637,16 +637,49 @@ def makeWebhookResultModifyCart(data):
 	user_name=getUserName(data)
 	item = data.get("result").get("parameters").get("wine_product")
 	db.add_to_cart.remove( { "product_name": item } )
-	speech="Item Successfully Removed from your cart"
-	
-	#speech = "food item is :"+food_item+" and serial_number is "+serial_number
-	#print(speech)
-	
+	data1=[]
+	button_confirm=["Continue Shopping","Show Cart"]
+	tmp1_dict={}
+	buttons1=[]
+	for j in button_confirm:
+		button = {"type": "imBack", "title":j, "value":j}
+		buttons1.append(button)
+	tmp1_dict["content"] = {"buttons": buttons1,"title":"         Item Successfully removed from your cart"}
+	tmp1_dict["contentType"] = "application/vnd.microsoft.card.hero"
+	data1.append(tmp1_dict)
 	return {
-		"speech": speech,
-		"displayText": speech,
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+        	{
+            		"name": "testcontext",
+            		"lifespan": 5,
+            		"parameters": {
+            			"test": "test"
+        			}
+    		}
+    		],
+    		"messages": [
+        		{
+        			"type": 0,
+            			"speech": "Checking payload message"
+        		},
+        		{
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "list",
+                		"attachments": data1
+               		 }
+            	}
+        	}
+			],
 		"source": "webhookdata"
-	}
+		}
 
 def makeWebhookResultbroffer(data):
 	return product_find(200)
