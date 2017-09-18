@@ -182,6 +182,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "LocateItemCatDetail":
 		data = req
 		res = makeWebhookResultLocateItemDetail(data)
+	elif req.get("result").get("action") == "LocateProduct":
+		data = req
+		res = makeWebhookResultLocateProduct(data)
 	else:
 		return {}
 	return res
@@ -507,6 +510,21 @@ def makeWebhookResultLocateItemDetail(data):
 	for row in loc_detail:
 		speech = speech + '\n' + row['location'] + '\n' 
 	
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
+
+def makeWebhookResultLocateProduct(data):
+	prod_name = data.get("result").get("parameters").get("wine_product")
+	for item in prod_name:
+		prod_cat_id=int(item['category_id'])
+	cat_loc=db.category.find({"category_id":prod_cat_id},{"location":1,"_id":0})
+	speech = 'Location of '+prod_name+' is :'
+	for loc in cat_loc:
+		speech = speech + '\n' + loc['location'] + '\n' 
+		
 	return {
 		"speech": speech,
 		"displayText": speech,
