@@ -205,17 +205,15 @@ def makeWebhookResultForGetChemicalSymbol(data):
 def makeWebhookResultForGetWineProduct(data):
 	user_name=getUserName(data)	
 	quantity = data.get("result").get("parameters").get("Quantity")
+	print(type(qunatity))
+	#if type(quantity) is str:
+	#	print("Please enter a digit")
 	item = data.get("result").get("parameters").get("wine_product")
-	print(quantity)
-	print(item)
 	result = db.add_to_cart.find({"user_name":user_name,"product_name":item})
 	prod_price=db.product.find({"name":item},{"price":1,"image_url":1,"_id":0})
 	for prod in prod_price:
 		price=str('$')+str(round(float(str(prod['price'])[1:]),2))
 		image=prod['image_url']
-	print(price)
-	print(image)
-	
 	if result.count()==0:
 		db.add_to_cart.insert({"user_name":user_name,"product_name":item,"Quantity":quantity,"price":price,"image_url":image})
 		
