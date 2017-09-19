@@ -505,16 +505,50 @@ def makeWineWithMealFood(data):
 def makeWebhookResultLocateItemDetail(data):
 	cat_name = data.get("result").get("parameters").get("category")
 	loc_detail = db.category.find({"category_name":cat_name},{"location":1,"_id":0})
-	print(cat_name)
-	speech = 'Location of '+cat_name+' is :'
+	#print(cat_name)
+	#speech = 'Location of '+cat_name+' is :'
+	data=[]
 	for row in loc_detail:
-		speech = speech + '\n' + row['location'] + '\n' 
+		tmp_dict = {}
+		location = row['location']
+		images=[{"url":"http://noecommercews1098.cloudapp.net/content/images/thumbs/0000201_store-map_415.jpeg"}]
+		tmp_dict["content"] = {"images": images,"title": "location of "+cat_name +" is :"+location}
+		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
+		data.append(tmp_dict)
 	
 	return {
-		"speech": speech,
-		"displayText": speech,
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+        	{
+            		"name": "testcontext",
+            		"lifespan": 5,
+            		"parameters": {
+            			"test": "test"
+        			}
+    		}
+    		],
+    		"messages": [
+        		{
+        			"type": 0,
+            			"speech": "Checking payload message"
+        		},
+        		{
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "list",
+                		"attachments": data
+               		 }
+            	}
+        	}
+			],
 		"source": "webhookdata"
-	}
+		}
 
 def makeWebhookResultLocateProduct(data):
 	prod_name = data.get("result").get("parameters").get("wine_product")
@@ -529,7 +563,7 @@ def makeWebhookResultLocateProduct(data):
 		tmp_dict = {}
 		location =loc['location']
 		images=[{"url":"http://noecommercews1098.cloudapp.net/content/images/thumbs/0000201_store-map_415.jpeg"}]
-		tmp_dict["content"] = {"images": images,"title": "location of "+prod_name +"is :"+location}
+		tmp_dict["content"] = {"images": images,"title": "location of "+prod_name +" is :"+location}
 		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data.append(tmp_dict)
 	return {
