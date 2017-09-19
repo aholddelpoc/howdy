@@ -223,12 +223,12 @@ def makeWebhookResultForGetWineProduct(data):
 	total=0
 	button_name=['Delete']
 	for item in db.add_to_cart.find({"user_name":user_name}):
-		total=total + round(float(str(item['price'])[1:]),2)*int(item['Quantity'])
+		total=total + round(float(str(item['price'])[1:])*int(item['Quantity']),2)
 		tmp_dict={}
 		buttons=[]
 		product_name=item['product_name']
 		quantity=item['Quantity']
-		price=str('$')+str(float(str(item['price'])[1:])*int(item['Quantity']))
+		price=str('$')+str(round(float(str(item['price'])[1:],2))*int(item['Quantity']))
 		for i in button_name:
 			button = {"type": "imBack", "title":i, "value":i+" "+product_name}
 			buttons.append(button)
