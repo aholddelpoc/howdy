@@ -229,7 +229,8 @@ def makeWebhookResultForGetWineProduct(data):
 		buttons=[]
 		product_name=item['product_name']
 		quantity=item['Quantity']
-		price=str('$')+str(round(float(str(item['price'])[1:],2))*int(item['Quantity']))
+		price=str('$')+str(float(str(item['price'])[1:])*int(item['Quantity']))
+		print(price)
 		for i in button_name:
 			button = {"type": "imBack", "title":i, "value":i+" "+product_name}
 			buttons.append(button)
