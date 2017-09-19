@@ -523,17 +523,48 @@ def makeWebhookResultLocateProduct(data):
 		cat_item_id=int(item['category_id'])
 	print(cat_item_id)
 	cat_loc=db.category.find({"category_id":cat_item_id},{"location":1,"_id":0})
-	speech = 'Location of '+prod_name+' is :'
+	#speech = 'Location of '+prod_name+' is :'
+	data=[]
 	for loc in cat_loc:
-		speech = speech + '\n' + loc['location'] + '\n' 
-		
+		tmp_dict = {}
+		location =loc['location']
+		images=[{"url":"http://noecommercews1098.cloudapp.net/content/images/thumbs/0000201_store-map_415.jpeg"}]
+		tmp_dict["content"] = {"images": images,"title": "location of "+prod_name +"is :"+location}
+		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
+		data.append(tmp_dict)
 	return {
-		"speech": speech,
-		"displayText": speech,
+		"speech": "",
+		"displayText": "",
+		# "data": data,
+		# "contextOut": [],
+		"contextOut": [
+        	{
+            		"name": "testcontext",
+            		"lifespan": 5,
+            		"parameters": {
+            			"test": "test"
+        			}
+    		}
+    		],
+    		"messages": [
+        		{
+        			"type": 0,
+            			"speech": "Checking payload message"
+        		},
+        		{
+            			"type": 4,
+            			"platform": "skype",
+            			"speech": "",
+            			"payload": {
+                		"skype": {
+                		"attachmentLayout": "list",
+                		"attachments": data
+               		 }
+            	}
+        	}
+			],
 		"source": "webhookdata"
-	}
-	
-	
+		}
 def makeBuyItem(data):
 	user_name=getUserName(data)
 	cur=db.add_to_cart.find({"user_name":user_name},{"_id":0})
