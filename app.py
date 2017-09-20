@@ -185,6 +185,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "LocateProduct":
 		data = req
 		res = makeWebhookResultLocateProduct(data)
+	elif req.get("result").get("action") == "lastorder":
+		data = req
+		res = makeWebhookResultlastorder(data)
 	else:
 		return {}
 	return res
@@ -619,7 +622,7 @@ def makeBuyItem(data):
 	#speech = ' Your Order Number : ' + str(order_id) + ' with order detail '
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		total=total + round(float(str(row['price'])[1:]),2)*int(row['Quantity'])
-		speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(float(str(row['price'])[1:])*int(row['Quantity'])) + '\n'
+		speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(round(float(str(item['price'])[1:])*int(item['Quantity']),2)) + '\n'
 	speech = speech + '\n' + 'Grand Total : ' + str('$')+str(total) + '\n' 
 	print(speech)
 	speech = speech + '\n' + 'Order will be dlivered to your default delivery address within 2 hours'+'\n'	
@@ -683,7 +686,18 @@ def makeWebhookResultForViewWishlist(data):
 	}
 
 	
-	
+def makeWebhookResultlastorder(data):
+	user_name=getUserName(data)
+	cur=db.order.find({"user_name":user_name}).sort("Purchase_Time",1)
+	for item in cur:
+		ord_id=item['order_id']
+	speech = ' Your Last Order Number : ' + str(ord_id)
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
+		
 
 def makeWebhookResultForRemoveCart(data):
 	user_name=getUserName(data)
