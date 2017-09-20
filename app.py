@@ -687,9 +687,11 @@ def makeWebhookResultForViewWishlist(data):
 def makeWebhookResultlastorder(data):
 	user_name=getUserName(data)
 	cur=db.order.find({"user_name":user_name}).sort("Purchase_Time",1)
+	total=0
 	for item in cur:
 		ord_id=item['order_id']
 	speech = ' Your Last Order Number : ' + str(ord_id) + '\n'
+	print(speech)
 	for row in db.order.find({'user_name':user_name,'order_id':ord_id}):
 		total=total + round(float(str(row['price'])[1:]),2)*int(row['Quantity'])
 		speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(round(float(str(row['price'])[1:])*int(row['Quantity']),2)) + '\n'
