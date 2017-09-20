@@ -719,6 +719,7 @@ def makeWebhookResultorddetail(data):
 	if result.count()==0:
 		speech ='Please enter correct Order Number'
 	else:
+		speech='Your order detail is : ' + '\n'
 		for row in result:
 			total=total + round(float(str(row['price'])[1:]),2)*int(row['Quantity'])
 			print(total)
