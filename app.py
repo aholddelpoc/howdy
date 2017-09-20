@@ -618,15 +618,13 @@ def makeBuyItem(data):
 	#for item in cur:
 	#	db.order.insert({"order_id":order_i"user_name":item['user_name'],"product_name":item['product_name'],"price":item['price'],"Quantity":item['Quantity'],"Purchase_Time":purchase_time})
 	speech = 'Thank You for Your order' + '\n'
-	print(speech)
+	
 	#speech = ' Your Order Number : ' + str(order_id) + ' with order detail '
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		total=total + round(float(str(row['price'])[1:]),2)*int(row['Quantity'])
 		speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(round(float(str(row['price'])[1:])*int(row['Quantity']),2)) + '\n'
-	speech = speech + '\n' + 'Grand Total : ' + str('$')+str(total) + '\n' 
-	print(speech)
-	speech = speech + '\n' + 'Order will be dlivered to your default delivery address within 2 hours'+'\n'	
-	print(speech)
+	speech = speech + '\n' + 'Grand Total : ' + str('$')+str(total) + '\n' 	
+	speech = speech + '\n' + 'Order will be dlivered to your default delivery address within 2 hours'+'\n'		
 	speech = speech + '\n' + 'To securely complete your purchase, reply with the unique "BUYCODE (eg: BUY1818)"' + '\n'
 	
 	return {
@@ -691,7 +689,14 @@ def makeWebhookResultlastorder(data):
 	cur=db.order.find({"user_name":user_name}).sort("Purchase_Time",1)
 	for item in cur:
 		ord_id=item['order_id']
-	speech = ' Your Last Order Number : ' + str(ord_id)
+	speech = ' Your Last Order Number : ' + str(ord_id) + '\n'
+	for row in db.order.find({'user_name':user_name,'order_id':ord_id}):
+		total=total + round(float(str(row['price'])[1:]),2)*int(row['Quantity'])
+		speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(round(float(str(row['price'])[1:])*int(row['Quantity']),2)) + '\n'
+	speech = speech + '\n' + 'Grand Total : ' + str('$')+str(total) + '\n' 
+	
+	speech = speech + '\n' + 'Order will be dlivered to your default delivery address within 2 hours'+'\n'	
+	
 	return {
 		"speech": speech,
 		"displayText": speech,
