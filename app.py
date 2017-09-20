@@ -722,6 +722,8 @@ def makeWebhookResultorddetail(data):
 		for row in result:
 			total=total + round(float(str(row['price'])[1:]),2)*int(row['Quantity'])
 			print(total)
+			print(row['product_name'])
+			print(row['Quantity'])
 			speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(round(float(str(row['price'])[1:])*int(row['Quantity']),2)) + '\n'
 		speech = speech + '\n' + 'Grand Total : ' + str('$')+str(total) + '\n' 
 		speech = speech + '\n' + 'Order will be dlivered to your default delivery address within 2 hours'+'\n'	
