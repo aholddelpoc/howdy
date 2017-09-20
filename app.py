@@ -710,6 +710,7 @@ def makeWebhookResultlastorder(data):
 def makeWebhookResultorddetail(data):
 	user_name=getUserName(data)
 	ord_id = data.get("result").get("parameters").get("number")
+	ord_id=int(ord_id)
 	print(type(ord_id))
 	print(ord_id)
 	
