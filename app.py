@@ -622,7 +622,7 @@ def makeBuyItem(data):
 	#speech = ' Your Order Number : ' + str(order_id) + ' with order detail '
 	for row in db.add_to_cart.find({'user_name':user_name}):
 		total=total + round(float(str(row['price'])[1:]),2)*int(row['Quantity'])
-		speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(round(float(str(item['price'])[1:])*int(item['Quantity']),2)) + '\n'
+		speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(round(float(str(row['price'])[1:])*int(row['Quantity']),2)) + '\n'
 	speech = speech + '\n' + 'Grand Total : ' + str('$')+str(total) + '\n' 
 	print(speech)
 	speech = speech + '\n' + 'Order will be dlivered to your default delivery address within 2 hours'+'\n'	
