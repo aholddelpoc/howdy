@@ -710,8 +710,9 @@ def makeWebhookResultlastorder(data):
 def makeWebhookResultorddetail(data):
 	user_name=getUserName(data)
 	ord_id = data.get("result").get("parameters").get("number")
-	print(str(ord_id))
 	print(type(ord_id))
+	print(ord_id)
+	
 	total=0
 	result=db.order.find({'user_name':user_name,'order_id':ord_id})
 	if result.count()==0:
