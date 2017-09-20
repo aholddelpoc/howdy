@@ -188,6 +188,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "lastorder":
 		data = req
 		res = makeWebhookResultlastorder(data)
+	elif req.get("result").get("action") == "ord_detail":
+		data = req
+		res = makeWebhookResultorddetail(data)
 	else:
 		return {}
 	return res
@@ -691,7 +694,6 @@ def makeWebhookResultlastorder(data):
 	for item in cur:
 		ord_id=item['order_id']
 	speech = ' Your Last Order Number : ' + str(ord_id) + '\n'
-	print(speech)
 	for row in db.order.find({'user_name':user_name,'order_id':ord_id}):
 		total=total + round(float(str(row['price'])[1:]),2)*int(row['Quantity'])
 		speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(round(float(str(row['price'])[1:])*int(row['Quantity']),2)) + '\n'
@@ -705,6 +707,28 @@ def makeWebhookResultlastorder(data):
 		"source": "webhookdata"
 	}
 		
+def makeWebhookResultorddetail(data):
+	user_name=getUserName(data)
+	ord_id = data.get("result").get("parameters").get("number")
+	
+	#speech = ' Your Order Number : ' + str(ord_id) + '\n'
+	print(speech)
+	result=db.order.find({'user_name':user_name,'order_id':ord_id})
+	if result.count()==0:
+		speech ='Please enter correct Order Number'
+	else:
+		for row in db.order.find({'user_name':user_name,'order_id':ord_id}):
+			total=total + round(float(str(row['price'])[1:]),2)*int(row['Quantity'])
+			speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(round(float(str(row['price'])[1:])*int(row['Quantity']),2)) + '\n'
+		speech = speech + '\n' + 'Grand Total : ' + str('$')+str(total) + '\n' 
+		speech = speech + '\n' + 'Order will be dlivered to your default delivery address within 2 hours'+'\n'	
+	
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
+	
 
 def makeWebhookResultForRemoveCart(data):
 	user_name=getUserName(data)
