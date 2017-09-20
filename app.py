@@ -446,16 +446,19 @@ def makeWineWithMealFood(data):
 	food_item = data.get("result").get("parameters").get("Food_Item")
 	food_item="".join(str(x) for x in food_item)
 	food = db.product.find({"name":food_item},{"product_id":1,"_id":0})
-	for item in food:
-		food_item_id=int(item['product_id'])
-	food_wine=db.product_map.find({"product_id_food":food_item_id},{"product_id_wine":1,"_id":0})
-	for item in food_wine:
-		food_wine_id=str(item['product_id_wine']).split(",")
-	food_wine_id = list(map(int,food_wine_id))
-	print(food_wine_id)
-	cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
-	data=[]
-	cur1=db.product.count( { "product_id" : { "$in": food_wine_id }})
+	if food.count()==0:
+		cur=db.product.find( { "product_id" : { "$in": [1001, 1002, 1069, 1070] }})
+	else:
+		for item in food:
+			food_item_id=int(item['product_id'])
+		food_wine=db.product_map.find({"product_id_food":food_item_id},{"product_id_wine":1,"_id":0})
+		for item in food_wine:
+			food_wine_id=str(item['product_id_wine']).split(",")
+		food_wine_id = list(map(int,food_wine_id))
+		print(food_wine_id)
+		cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
+		data=[]
+		cur1=db.product.count( { "product_id" : { "$in": food_wine_id }})
 	button_name=['Locate','Call for Assistance','Add to Cart']
 	for item in cur:
 		tmp_dict = {}
