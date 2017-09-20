@@ -457,7 +457,7 @@ def makeWineWithMealFood(data):
 		food_wine_id = list(map(int,food_wine_id))
 		print(food_wine_id)
 		cur=db.product.find( { "product_id" : { "$in": food_wine_id }})
-		data=[]
+	data=[]
 		cur1=db.product.count( { "product_id" : { "$in": food_wine_id }})
 	button_name=['Locate','Call for Assistance','Add to Cart']
 	for item in cur:
