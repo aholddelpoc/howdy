@@ -719,8 +719,9 @@ def makeWebhookResultorddetail(data):
 	if result.count()==0:
 		speech ='Please enter correct Order Number'
 	else:
-		for row in db.order.find({'user_name':user_name,'order_id':ord_id}):
+		for row in result:
 			total=total + round(float(str(row['price'])[1:]),2)*int(row['Quantity'])
+			print(total)
 			speech = speech + '\n' + row['product_name'] + ',  Quantity - ' + row['Quantity'] + ', Total Price - ' + str('$')+str(round(float(str(row['price'])[1:])*int(row['Quantity']),2)) + '\n'
 		speech = speech + '\n' + 'Grand Total : ' + str('$')+str(total) + '\n' 
 		speech = speech + '\n' + 'Order will be dlivered to your default delivery address within 2 hours'+'\n'	
