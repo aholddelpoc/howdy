@@ -679,6 +679,7 @@ def makeWebhookResultAddToWishlist(data):
 
 def makeWebhookFallback(data):
 	search_pattern=data.get("result").get("resolvedQuery")
+	print(search_pattern)
 	#new=2
 	#tabUrl="http://google.com/?#q=";
 	speech='Please find the search result in google '+' ' +search_pattern
@@ -686,7 +687,6 @@ def makeWebhookFallback(data):
 	
 	#speech = speech + content
 	
-	print(speech)
 	return {
 		"speech": speech,
 		"displayText": speech,
