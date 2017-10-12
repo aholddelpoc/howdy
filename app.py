@@ -686,7 +686,6 @@ def makeWebhookFallback(data):
 	contents = webbrowser.open(tabUrl+search_pattern,new=new);
 	for content in contents:
 		print(content)
-	
 	speech = speech + content
 	print(speech)
 	
