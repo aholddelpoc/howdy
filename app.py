@@ -13,6 +13,7 @@ import os
 import pymongo
 import random
 import time
+import webbrowser
 
 from flask import Flask
 from flask import request
@@ -677,9 +678,10 @@ def makeWebhookResultAddToWishlist(data):
 	}
 
 def makeWebhookFallback(data):
-	speech = 'checking for fallback intent'
 	search_pattern=data.get("result").get("resolvedQuery")
-	speech = speech + search_pattern
+	new=2
+	tabUrl="http://google.com/?#q=";
+	speech = webbrowser.open(tabUrl+search_pattern,new=new);
 	return {
 		"speech": speech,
 		"displayText": speech,
