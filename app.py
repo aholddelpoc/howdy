@@ -681,10 +681,10 @@ def makeWebhookFallback(data):
 	search_pattern=data.get("result").get("resolvedQuery")
 	new=2
 	tabUrl="http://google.com/?#q=";
-	speech='Please find the search result in google '
+	speech='Please find the search result in google '+' ' +search_pattern
 	content = webbrowser.open(tabUrl+search_pattern,new=new);
 	
-	speech = speech + content
+	#speech = speech + content
 	
 	print(speech)
 	return {
