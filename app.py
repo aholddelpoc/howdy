@@ -678,6 +678,8 @@ def makeWebhookResultAddToWishlist(data):
 
 def makeWebhookFallback(data):
 	speech = 'checking for fallback intent'
+	search_pattern=data.get("result").get("resolvedQuery")
+	speech = speech + search_pattern
 	return {
 		"speech": speech,
 		"displayText": speech,
