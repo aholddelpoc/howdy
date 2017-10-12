@@ -192,7 +192,7 @@ def processRequest(req):
 	elif req.get("result").get("action") == "ord_detail":
 		data = req
 		res = makeWebhookResultorddetail(data)
-	elif req.get("result").get("action") == "input.unknown":
+	elif req.get("result").get("action") == "unknown":
 		data = req
 		res = makeWebhookFallback(data)
 	else:
