@@ -191,6 +191,9 @@ def processRequest(req):
 	elif req.get("result").get("action") == "ord_detail":
 		data = req
 		res = makeWebhookResultorddetail(data)
+	elif req.get("result").get("action") == "input.unknown":
+		data = req
+		res = makeWebhookFallback(data)
 	else:
 		return {}
 	return res
@@ -667,6 +670,14 @@ def makeWebhookResultAddToWishlist(data):
 	for row in db.wishlist.find({'user_name':user_name}):
 		speech = speech + '\n' + 'Product Name : ' + row['product_name'] + '\n' 
 	
+	return {
+		"speech": speech,
+		"displayText": speech,
+		"source": "webhookdata"
+	}
+
+def makeWebhookFallback(data):
+	speech = 'checking for fallback intent'
 	return {
 		"speech": speech,
 		"displayText": speech,
