@@ -13,7 +13,7 @@ import os
 import pymongo
 import random
 import time
-import webbrowser
+from googleapiclient.discovery import build
 
 from flask import Flask
 from flask import request
@@ -679,12 +679,19 @@ def makeWebhookResultAddToWishlist(data):
 
 def makeWebhookFallback(data):
 	search_pattern=data.get("result").get("resolvedQuery")
-	print(search_pattern)
-	new=2
-	tabUrl="http://google.com/?#q=";
+	#print(search_pattern)
+	#new=2
+	#tabUrl="http://google.com/?#q=";
 	speech='Please find the search result in google for ' +search_pattern
-	contents = webbrowser.open(tabUrl+search_pattern,new=new);
-	print(contents)
+	my_api_key = "AIzaSyCw1i4Uj56g_JV_k8RxcBEVVAVHwCVAjv0"
+	my_cse_id = "017136950951507562470:sp3zbls1gae"
+
+	def google_search(search_term, api_key, cse_id, **kwargs):
+		service = build("customsearch", "v1", developerKey=api_key)
+		res = service.cse().list(q=search_pattern, cx=cse_id, **kwargs).execute()
+		return res['items']
+	results = google_search('stackoverflow site:en.google.com', my_api_key, my_cse_id, num=1)
+	speech=speech + "\n" + results[0]['link']
 	#speech = speech + "\n" + contents
 	#print(speech)
 	
