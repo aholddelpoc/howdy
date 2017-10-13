@@ -19,7 +19,7 @@ from flask import Flask
 from flask import request
 from flask import make_response
 from os import environ
-print environ.get('google_search_api_key')
+print (environ.get('google_search_api_key'))
 
 # Flask app should start in global layout
 app = Flask(__name__)
