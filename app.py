@@ -685,7 +685,7 @@ def makeWebhookFallback(data):
 	speech='Please find the search result in google '
 	contents = webbrowser.open(tabUrl+search_pattern,new=new);
 	print(contents)
-	#speech = speech + contents
+	speech = speech + "\n" + contents
 	#print(speech)
 	
 	return {
