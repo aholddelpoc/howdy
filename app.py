@@ -19,7 +19,8 @@ from flask import Flask
 from flask import request
 from flask import make_response
 from os import environ
-print (environ.get('google_search_api_key'))
+app_key=environ.get('google_search_api_key')
+cse_id=environ.get('cse_id')
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -685,14 +686,12 @@ def makeWebhookFallback(data):
 	#new=2
 	#tabUrl="http://google.com/?#q=";
 	speech='The subject you typed is irrelevent to me. Please find the search result in google for ' +search_pattern
-	my_api_key = "AIzaSyCw1i4Uj56g_JV_k8RxcBEVVAVHwCVAjv0"
-	my_cse_id = "017136950951507562470:sp3zbls1gae"
-
+	
 	def google_search(search_term, api_key, cse_id, **kwargs):
 		service = build("customsearch", "v1", developerKey=api_key)
-		res = service.cse().list(q=search_pattern, cx=cse_id, **kwargs).execute()
+		res = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
 		return res['items']
-	results = google_search('stackoverflow site:en.google.com', my_api_key, my_cse_id, num=1)
+	results = google_search(search_pattern,app_key, cse_id, num=1)
 	speech=speech + "\n" + results[0]['link']
 	#speech = speech + "\n" + contents
 	#print(speech)
