@@ -26,7 +26,7 @@ cse_id=environ.get('cse_id')
 app = Flask(__name__)
 
 
-uri = 'mongodb://howdy:howdy@ds157723.mlab.com:57723/howdy' 
+uri = environ.get('mongo_url')
 client = pymongo.MongoClient(uri)
 db = client.get_default_database()
 cursor = db.product.find({'product_id': {'$gt': 1}})
