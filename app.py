@@ -685,7 +685,7 @@ def makeWebhookFallback(data):
 	#print(search_pattern)
 	#new=2
 	#tabUrl="http://google.com/?#q=";
-	speech='The subject you typed is irrelevent to me. Please find the search result in google for ' +search_pattern
+	speech='The subject you typed is irrelevant to me. Please find the search result in google for ' +search_pattern
 	
 	def google_search(search_term, api_key, cse_id, **kwargs):
 		service = build("customsearch", "v1", developerKey=api_key)
