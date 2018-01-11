@@ -582,7 +582,7 @@ def makeWebhookResultLocateProduct(data):
 	for loc in cat_loc:
 		tmp_dict = {}
 		location =loc['location']
-		images=[{"url":"http://noecommercews1098.cloudapp.net/content/images/thumbs/0000201_store-map_415.jpeg"}]
+		images=[{"url":"http://aholddemo.azurewebsites.net/images/thumbs/0000152_store-map_550.jpeg"}]
 		tmp_dict["content"] = {"images": images,"title": "location of "+prod_name +" is :"+location}
 		tmp_dict["contentType"] = "application/vnd.microsoft.card.hero"
 		data.append(tmp_dict)
